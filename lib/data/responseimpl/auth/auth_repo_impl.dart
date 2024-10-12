@@ -8,9 +8,9 @@ import 'package:injectable/injectable.dart';
 @Injectable(as: AuthenticationRepo)
 class AuthRepoImpl implements AuthenticationRepo {
   final AuthOnlineDatasource _authOnlineDatasource;
-  final AuthOfflineDatasource _authOfflineDatasource;
+  //final AuthOfflineDatasource _authOfflineDatasource;
 
-  AuthRepoImpl(this._authOnlineDatasource, this._authOfflineDatasource);
+  AuthRepoImpl(this._authOnlineDatasource);
 
   @override
   Future<Result<User?>> login(String email, String password) async {

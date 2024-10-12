@@ -23,6 +23,21 @@ class ApiManager {
     return AuthResponse.fromJson(response.data);
   }
 
+  Future<AuthResponse?> fogotPassword(String email) async {
+    var response =
+        await _dio.post(ApiConsts.forgetPasswordPath, data: {"email": email});
+    return AuthResponse.fromJson(response.data);
+  }
 
+  Future<AuthResponse?> verifyResetPassword(String resetCode) async {
+    var response = await _dio
+        .post(ApiConsts.forgetPasswordPath, data: {"resetCode": resetCode});
+    return AuthResponse.fromJson(response.data);
+  }
 
+  Future<AuthResponse?> resetPassword(String email, String newPassword) async {
+    var response = await _dio
+        .post(ApiConsts.resetPasswordPath, data: {"newPassword": newPassword});
+    return AuthResponse.fromJson(response.data);
+  }
 }

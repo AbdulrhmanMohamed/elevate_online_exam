@@ -12,4 +12,7 @@ abstract class AuthenticationRepo {
     String rePassword,
     String phone,
   );
+  Future<Result<String>> forgotPassword(String email);
+  Future<Result<bool>> verifyResetPassword(String resetCode);
+  Future<Result<User?>> resetPassword(String email, String newPassword);
 }

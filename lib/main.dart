@@ -15,6 +15,10 @@ class OnlineExam extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         inputDecorationTheme: const InputDecorationTheme(
+            hintStyle: TextStyle(fontWeight: FontWeight.w300),
+            labelStyle: TextStyle(color: Colors.black),
+            focusedBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
             border: OutlineInputBorder(borderRadius: BorderRadius.zero)),
       ),
       home: LoginScreen(),

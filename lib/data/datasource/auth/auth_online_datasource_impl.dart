@@ -1,4 +1,3 @@
-
 import 'package:elevate_online_exam/common/api_result.dart';
 import 'package:elevate_online_exam/data/api/api_extentions.dart';
 import 'package:elevate_online_exam/data/api/models/request/register_body.dart';
@@ -9,8 +8,8 @@ import 'package:injectable/injectable.dart';
 
 import 'package:elevate_online_exam/data/api/api_manager.dart';
 
-@Injectable(as:AuthOnlineDatasource)
-class AuthOnlineDatasourceImpl  implements AuthOnlineDatasource{
+@Injectable(as: AuthOnlineDatasource)
+class AuthOnlineDatasourceImpl implements AuthOnlineDatasource {
   ApiManager apiManager;
   AuthOnlineDatasourceImpl({required this.apiManager});
 
@@ -24,7 +23,7 @@ class AuthOnlineDatasourceImpl  implements AuthOnlineDatasource{
     });
   }
 
-  Future<User?> register(
+  Future<Result<User?>> register(
     String username,
     String firstName,
     String lastName,
@@ -42,15 +41,21 @@ class AuthOnlineDatasourceImpl  implements AuthOnlineDatasource{
       rePassword: rePassword,
       phone: phone,
     );
-    var result = await apiManager.register(registerBody);
-    var user = result?.user;
-    var userDto = UserDto(
-        username: user?.username,
-        firstName: user?.firstName,
-        lastName: user?.lastName,
-        email: user?.email,
-        isVerified: user?.isVerified,
-        token: result?.token);
-    return userDto.toUser();
+
+    return executeApi(
+      () async {
+        var result = await apiManager.register(registerBody);
+        var user = result?.user;
+        var userDto = UserDto(
+            username: user?.username,
+            firstName: user?.firstName,
+            lastName: user?.lastName,
+            email: user?.email,
+            isVerified: user?.isVerified,
+            token: result?.token);
+
+        return userDto.toUser();
+      },
+    );
   }
 }

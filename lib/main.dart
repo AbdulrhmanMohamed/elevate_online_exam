@@ -1,5 +1,6 @@
 import 'package:elevate_online_exam/di/di.dart';
 import 'package:elevate_online_exam/presentaion/views/login_screen.dart';
+import 'package:elevate_online_exam/presentaion/views/register_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -22,7 +23,7 @@ class OnlineExam extends StatelessWidget {
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
             border: OutlineInputBorder()),
       ),
-      home: LoginScreen(),
+      home: RegisterScreen(),
     );
   }
 }

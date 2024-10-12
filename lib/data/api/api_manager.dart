@@ -9,7 +9,9 @@ class ApiManager {
   late Dio _dio;
 
   ApiManager() {
-    _dio = Dio(BaseOptions(baseUrl: ApiConsts.baseUrl));
+    _dio = Dio(BaseOptions(
+      baseUrl: ApiConsts.baseUrl,
+    ));
   }
 
   Future<AuthResponse?> login(String email, String password) async {
@@ -19,10 +21,15 @@ class ApiManager {
   }
 
   Future<AuthResponse?> register(RegisterBody registerBody) async {
-    var response = await _dio.post(ApiConsts.singinPath, data: registerBody);
+    var response = await _dio.post(
+      ApiConsts.signupPath,
+      data: registerBody,
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      ),
+    );
     return AuthResponse.fromJson(response.data);
   }
-
-
-
 }

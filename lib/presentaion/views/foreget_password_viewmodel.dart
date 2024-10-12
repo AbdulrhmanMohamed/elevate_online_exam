@@ -28,7 +28,8 @@ class ForegetPasswordViewmodel extends Cubit<ForgetPasswordState> {
   }
 
   Future<void> _checkEmail(VerifyEmailIntent intent) async {
-    //emit(LoadingState());
+    emit(LoadingState());
+
     var result = await forgetPasswordUsecase.forgotPassword(intent.email);
     switch (result) {
       case Success<String>():
@@ -43,7 +44,7 @@ class ForegetPasswordViewmodel extends Cubit<ForgetPasswordState> {
   }
 
   Future<void> _verifyOtp(VerifyOtpIntent intent) async {
-    //emit(LoadingState());
+    emit(LoadingState());
     var result = await forgetPasswordUsecase.verifyResetPassword(intent.otp);
     switch (result) {
       case Success<bool>():
@@ -58,7 +59,9 @@ class ForegetPasswordViewmodel extends Cubit<ForgetPasswordState> {
   }
 
   Future<void> _resetPassword(ResetPasswordIntent intent) async {
-    //emit(LoadingState());
+    emit(LoadingState());
+    print(intent.newPassword);
+    print(intent.email);
     var result = await forgetPasswordUsecase.resetPassword(
         intent.email, intent.newPassword);
     switch (result) {

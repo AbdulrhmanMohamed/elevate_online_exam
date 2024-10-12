@@ -31,13 +31,13 @@ class ApiManager {
 
   Future<bool> verifyResetPassword(String resetCode) async {
     await _dio
-        .post(ApiConsts.forgetPasswordPath, data: {"resetCode": resetCode});
+        .post(ApiConsts.verifyResetCodePath, data: {"resetCode": resetCode});
     return true;
   }
 
   Future<AuthResponse?> resetPassword(String email, String newPassword) async {
-    var response = await _dio
-        .post(ApiConsts.resetPasswordPath, data: {"newPassword": newPassword});
+    var response = await _dio.put(ApiConsts.resetPasswordPath,
+        data: {"email": email, "newPassword": newPassword});
     return AuthResponse.fromJson(response.data);
   }
 }

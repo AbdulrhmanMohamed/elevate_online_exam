@@ -222,7 +222,6 @@ class ForgetPasswordScreen extends StatelessWidget {
   }
 
   Widget _verifyPassword(final screenWidth, Exception? exception) {
-    print(extractErrorMessage(exception));
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Form(

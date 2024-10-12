@@ -20,7 +20,7 @@ class OnlineExam extends StatelessWidget {
             floatingLabelBehavior: FloatingLabelBehavior.always,
             focusedBorder:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-            border: OutlineInputBorder(borderRadius: BorderRadius.zero)),
+            border: OutlineInputBorder()),
       ),
       home: LoginScreen(),
     );

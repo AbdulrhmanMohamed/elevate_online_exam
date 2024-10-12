@@ -14,4 +14,8 @@ abstract class AuthOnlineDatasource {
     String rePassword,
     String phone,
   );
+
+  Future<Result<String>> forgotPassword(String email);
+  Future<Result<bool>> verifyResetPassword(String resetCode);
+  Future<Result<User?>> resetPasswprd(String email, String newPassword);
 }

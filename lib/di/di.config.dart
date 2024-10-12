@@ -16,8 +16,11 @@ import '../data/contracts/auth/auth_online_datasource.dart' as _i62;
 import '../data/datasource/auth/auth_online_datasource_impl.dart' as _i567;
 import '../data/responseimpl/auth/auth_repo_impl.dart' as _i253;
 import '../domain/repos/authentication_repo.dart' as _i1053;
+import '../domain/usecases/authentication/forget_password_usecase.dart'
+    as _i228;
 import '../domain/usecases/authentication/login_usecase.dart' as _i827;
 import '../domain/usecases/authentication/register_usecase.dart' as _i796;
+import '../presentaion/views/foreget_password_viewmodel.dart' as _i384;
 import '../presentaion/views/register_viewmodel.dart' as _i112;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -42,6 +45,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i796.RegisterUsecase(gh<_i1053.AuthenticationRepo>()));
     gh.factory<_i112.RegisterViewmodel>(
         () => _i112.RegisterViewmodel(gh<_i796.RegisterUsecase>()));
+    gh.factory<_i228.ForgetPasswordUsecase>(
+        () => _i228.ForgetPasswordUsecase(gh<_i1053.AuthenticationRepo>()));
+    gh.factory<_i384.ForegetPasswordViewmodel>(() =>
+        _i384.ForegetPasswordViewmodel(gh<_i228.ForgetPasswordUsecase>()));
     return this;
   }
 }

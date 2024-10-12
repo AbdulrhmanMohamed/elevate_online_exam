@@ -8,7 +8,7 @@ import 'package:injectable/injectable.dart';
 @Injectable(as: AuthenticationRepo)
 class AuthRepoImpl implements AuthenticationRepo {
   final AuthOnlineDatasource _authOnlineDatasource;
-  // final AuthOfflineDatasource _authOfflineDatasource;
+  //final AuthOfflineDatasource _authOfflineDatasource;
 
   AuthRepoImpl(this._authOnlineDatasource);
 
@@ -31,5 +31,20 @@ class AuthRepoImpl implements AuthenticationRepo {
     // TODO: implement register
     return await _authOnlineDatasource.register(
         username, firstName, lastName, email, password, rePassword, phone);
+  }
+
+  @override
+  Future<Result<String>> forgotPassword(String email) async {
+    return await _authOnlineDatasource.forgotPassword(email);
+  }
+
+  @override
+  Future<Result<bool>> verifyResetPassword(String resetCode) async {
+    return await _authOnlineDatasource.verifyResetPassword(resetCode);
+  }
+
+  @override
+  Future<Result<User?>> resetPassword(String email, String newPassword) async {
+    return await _authOnlineDatasource.resetPasswprd(email, newPassword);
   }
 }

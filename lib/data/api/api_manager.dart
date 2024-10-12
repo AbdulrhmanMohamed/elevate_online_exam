@@ -32,4 +32,22 @@ class ApiManager {
     );
     return AuthResponse.fromJson(response.data);
   }
+
+  Future<String> fogotPassword(String email) async {
+    var response =
+        await _dio.post(ApiConsts.forgetPasswordPath, data: {"email": email});
+    return response.data['message'];
+  }
+
+  Future<bool> verifyResetPassword(String resetCode) async {
+    await _dio
+        .post(ApiConsts.verifyResetCodePath, data: {"resetCode": resetCode});
+    return true;
+  }
+
+  Future<AuthResponse?> resetPassword(String email, String newPassword) async {
+    var response = await _dio.put(ApiConsts.resetPasswordPath,
+        data: {"email": email, "newPassword": newPassword});
+    return AuthResponse.fromJson(response.data);
+  }
 }

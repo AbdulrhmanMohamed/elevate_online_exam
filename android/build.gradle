@@ -1,0 +1,33 @@
+// This block is for configuring the build system itself, like the Android Gradle Plugin version
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        // Android Gradle Plugin version that matches your Gradle version
+        classpath 'com.android.tools.build:gradle:8.1.1'
+    }
+}
+
+// This is for all projects to ensure that they can resolve dependencies from the appropriate sources
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+// This task cleans the build directory
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}

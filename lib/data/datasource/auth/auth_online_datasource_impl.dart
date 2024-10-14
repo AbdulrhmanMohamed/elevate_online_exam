@@ -18,7 +18,15 @@ class AuthOnlineDatasourceImpl implements AuthOnlineDatasource {
       var result = await apiManager.login(email, password);
       var user = result?.user;
 
-      var userDto = UserDto(isVerified: user?.isVerified, token: result?.token);
+      var userDto = UserDto(
+      isVerified: user?.isVerified,
+       token: result?.token,
+       username: user?.username,
+       firstName: user?.firstName,
+       lastName: user?.lastName,
+       email: user?.email,
+       phone:user?.phone,
+       );
       return userDto.toUser();
     });
   }

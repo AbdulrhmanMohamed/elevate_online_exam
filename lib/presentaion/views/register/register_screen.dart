@@ -1,7 +1,7 @@
 import 'package:elevate_online_exam/di/di.dart';
 import 'package:elevate_online_exam/presentaion/utils.dart';
-import 'package:elevate_online_exam/presentaion/views/login_screen.dart';
-import 'package:elevate_online_exam/presentaion/views/register_viewmodel.dart';
+import 'package:elevate_online_exam/presentaion/views/login/login_screen.dart';
+import 'package:elevate_online_exam/presentaion/views/register/register_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,11 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 content: const Text('Signed up successfully'),
                 action: SnackBarAction(
                   label: 'login',
-                  onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
-                      )),
+                  onPressed: () => Navigator.pushNamed(context,'login')
                 ),
               ));
             }
@@ -265,7 +261,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         children: [
                           const Text('Already have an account?'),
                           TextButton(
-                              onPressed: () {},
+                              onPressed: ()=>Navigator.pushNamed(context,'login'),
                               child: const Text(
                                 'Login',
                                 style: TextStyle(

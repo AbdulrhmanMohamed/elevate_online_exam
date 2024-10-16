@@ -26,16 +26,16 @@ class AppButton extends StatelessWidget {
     return Container(
       width: double.infinity,
       child: TextButton(
-        style: TextButton.styleFrom(
-            padding: EdgeInsets.symmetric(
-                vertical: verticalPadding ?? AppSizes.s16,
-                horizontal:horizontalPadding?? AppSizes.s16),
-            backgroundColor:backgroundColor?? AppColor.darkBlue,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(borderRadius?? AppSizes.s14))),
-        onPressed: onPressed,
-        child: text
-      ),
+          style: TextButton.styleFrom(
+              padding: EdgeInsets.symmetric(
+                  vertical: verticalPadding ?? AppSizes.s16,
+                  horizontal: horizontalPadding ?? AppSizes.s16),
+              backgroundColor: backgroundColor ?? AppColor.darkBlue,
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(borderRadius ?? AppSizes.s14))),
+          onPressed: onPressed,
+          child: text),
     );
   }
 }

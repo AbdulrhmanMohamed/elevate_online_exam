@@ -1,5 +1,6 @@
 import 'package:elevate_online_exam/di/di.dart';
 import 'package:elevate_online_exam/presentaion/utils.dart';
+import 'package:elevate_online_exam/presentaion/views/login/email_and_password.dart';
 import 'package:elevate_online_exam/presentaion/views/login/login_screen.dart';
 import 'package:elevate_online_exam/presentaion/views/register/register_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String? _usernameError;
   String? _emailError;
   RegisterViewmodel viewModel = getIt.get<RegisterViewmodel>();
+  RegExp phoneRegex = RegExp(r'^01[0125][0-9]{8}$');
   @override
   Widget build(BuildContext context) {
     const double sizedBoxHeight = 24;
@@ -39,22 +41,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: const Text('Signed up successfully'),
                 action: SnackBarAction(
-                  label: 'login',
-                  onPressed: () => Navigator.pushNamed(context,'login')
-                ),
+                    label: 'login',
+                    onPressed: () => Navigator.pushNamed(context, 'login')),
               ));
             }
             if (state is ErrorState) {
               final message = extractErrorMessage(state.exception);
               if (message == 'username already exists') {
-                _usernameError = 'The username is not valid';
+                _usernameError = 'username already exists';
                 _formKey.currentState!.validate();
               }
               if (message == 'email already exists') {
-                _emailError = 'The Email is not valid';
+                _emailError = 'email already exists';
                 _formKey.currentState!.validate();
               }
-
               // showDialog(
               //   context: context,
               //   builder: (context) => AlertDialog(
@@ -144,15 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       const SizedBox(height: sizedBoxHeight),
                       TextFormField(
-                        validator: (value) {
-                          if (_emailError != null) {
-                            return _emailError;
-                          }
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter email';
-                          }
-                          return null;
-                        },
+                        validator: email_validator,
                         controller: _emailController,
                         decoration: const InputDecoration(
                           label: Text('Email'),
@@ -171,12 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         children: [
                           Expanded(
                             child: TextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter password';
-                                }
-                                return null;
-                              },
+                              validator: passwordValidator,
                               controller: _passwordController,
                               decoration: const InputDecoration(
                                 label: Text('Password'),
@@ -215,6 +202,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter phone';
+                          }
+                          if (!phoneRegex.hasMatch(value)) {
+                            return 'invalid phone number';
                           }
                           return null;
                         },
@@ -261,7 +251,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         children: [
                           const Text('Already have an account?'),
                           TextButton(
-                              onPressed: ()=>Navigator.pushNamed(context,'login'),
+                              onPressed: () =>
+                                  Navigator.pushNamed(context, 'login'),
                               child: const Text(
                                 'Login',
                                 style: TextStyle(

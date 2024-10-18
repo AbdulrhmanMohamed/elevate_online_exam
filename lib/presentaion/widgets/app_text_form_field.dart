@@ -3,7 +3,7 @@ import 'package:elevate_online_exam/presentaion/helper/app_sizes.dart';
 import 'package:elevate_online_exam/presentaion/helper/color_consts.dart';
 import 'package:elevate_online_exam/presentaion/helper/text_styles.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppTextFormField extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
@@ -55,16 +55,16 @@ class AppTextFormField extends StatelessWidget {
       controller: controller,
   
       decoration: InputDecoration(
-      errorStyle: Styles.get_bold(AppSizes.s14,AppColor.red),
+      errorStyle: Styles.get_bold(AppSizes.s14.sp,AppColor.red),
       label:label ,
-      labelStyle: Styles.get_bold(AppSizes.s14, isError!?AppColor.red:AppColor.black),
+      labelStyle: Styles.get_bold(AppSizes.s14.sp, isError!?AppColor.red:AppColor.black),
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
           filled: filled ?? true,
           fillColor: fillColor ?? AppColor.white,
           isDense: true,
           contentPadding: contentPadding ??
-            const  EdgeInsets.symmetric(
+             const EdgeInsets.symmetric(
                   vertical: AppSizes.s20, horizontal: AppSizes.s20),
           // enabledBorder: enabledBorder ??
           //     OutlineInputBorder(

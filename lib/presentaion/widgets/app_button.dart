@@ -1,6 +1,7 @@
 import 'package:elevate_online_exam/presentaion/helper/app_sizes.dart';
 import 'package:elevate_online_exam/presentaion/helper/color_consts.dart';
 import 'package:elevate_online_exam/presentaion/helper/text_styles.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
@@ -23,17 +24,13 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
+      height: AppSizes.s48.h,
       width: double.infinity,
-      child: TextButton(
-          style: TextButton.styleFrom(
-              padding: EdgeInsets.symmetric(
-                  vertical: verticalPadding ?? AppSizes.s16,
-                  horizontal: horizontalPadding ?? AppSizes.s16),
-              backgroundColor: backgroundColor ?? AppColor.darkBlue,
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(borderRadius ?? AppSizes.s14))),
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: backgroundColor ?? AppColor.darkBlue,
+          ),
           onPressed: onPressed,
           child: text),
     );

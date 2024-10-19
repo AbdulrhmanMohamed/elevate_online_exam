@@ -1,10 +1,12 @@
 import 'package:elevate_online_exam/di/di.dart';
+import 'package:elevate_online_exam/presentaion/helper/app_sizes.dart';
 import 'package:elevate_online_exam/presentaion/utils.dart';
 import 'package:elevate_online_exam/presentaion/views/login/email_and_password.dart';
-import 'package:elevate_online_exam/presentaion/views/login/login_screen.dart';
 import 'package:elevate_online_exam/presentaion/views/register/register_viewmodel.dart';
+import 'package:elevate_online_exam/presentaion/widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -29,8 +31,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   RegExp phoneRegex = RegExp(r'^01[0125][0-9]{8}$');
   @override
   Widget build(BuildContext context) {
-    const double sizedBoxHeight = 24;
-    const double sizedBoxWidth = 20;
     double screenWidth = MediaQuery.of(context).size.width;
     return BlocProvider(
         create: (context) => viewModel,
@@ -102,8 +102,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           });
                         },
                       ),
-                      const SizedBox(
-                        height: sizedBoxHeight,
+                      SizedBox(
+                        height: AppSizes.s24.h,
                       ),
                       Row(
                         children: [
@@ -122,8 +122,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            width: sizedBoxWidth,
+                          SizedBox(
+                            width: AppSizes.s20.w,
                           ),
                           Expanded(
                             child: TextFormField(
@@ -142,7 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           )
                         ],
                       ),
-                      const SizedBox(height: sizedBoxHeight),
+                      SizedBox(height: AppSizes.s24.h),
                       TextFormField(
                         validator: email_validator,
                         controller: _emailController,
@@ -156,8 +156,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           });
                         },
                       ),
-                      const SizedBox(
-                        height: sizedBoxHeight,
+                      SizedBox(
+                        height: AppSizes.s24.h,
                       ),
                       Row(
                         children: [
@@ -171,8 +171,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            width: sizedBoxWidth,
+                          SizedBox(
+                            width: AppSizes.s20.w,
                           ),
                           Expanded(
                             child: TextFormField(
@@ -194,8 +194,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           )
                         ],
                       ),
-                      const SizedBox(
-                        height: sizedBoxHeight,
+                      SizedBox(
+                        height: AppSizes.s24.h,
                       ),
                       TextFormField(
                         controller: _phoneNumberController,
@@ -213,38 +213,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           hintText: 'Enter phone number',
                         ),
                       ),
-                      const SizedBox(
-                        height: 50,
+                      SizedBox(
+                        height: 50.h,
+                      ),
+                      AppButton(
+                        text: BlocBuilder<RegisterViewmodel, RegisterState>(
+                          builder: (context, state) {
+                            switch (state) {
+                              case LoadingState():
+                                {
+                                  return const CircularProgressIndicator(
+                                    color: Colors.white,
+                                  );
+                                }
+                              default:
+                                {
+                                  return const Text('Signup');
+                                }
+                            }
+                          },
+                        ),
+                        onPressed: register,
                       ),
                       SizedBox(
-                          width: screenWidth,
-                          height: 48,
-                          child: ElevatedButton(
-                              onPressed: () {
-                                register();
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF02369C),
-                                  foregroundColor: Colors.white),
-                              child:
-                                  BlocBuilder<RegisterViewmodel, RegisterState>(
-                                builder: (context, state) {
-                                  switch (state) {
-                                    case LoadingState():
-                                      {
-                                        return const CircularProgressIndicator(
-                                          color: Colors.white,
-                                        );
-                                      }
-                                    default:
-                                      {
-                                        return const Text('Signup');
-                                      }
-                                  }
-                                },
-                              ))),
-                      const SizedBox(
-                        height: 16,
+                        height: 16.h,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

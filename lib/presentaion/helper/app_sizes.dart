@@ -1,3 +1,5 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 class AppSizes {
   static const double s0 = 0.0;
   static const double s1 = 1.0;
@@ -31,5 +33,7 @@ class AppSizes {
   static const double s29 = 29.0;
   static const double s30 = 30.0;
   static const double s48 = 48.0;
+  static const double s50 = 50.0;
   static const double s60 = 60.0;
+  static const double s80 = 80.0;
 }

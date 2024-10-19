@@ -1,4 +1,6 @@
+import 'package:elevate_online_exam/presentaion/helper/app_sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class VerifyOtp extends StatelessWidget {
   final Exception? exception;
@@ -23,26 +25,28 @@ class VerifyOtp extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               'Email verification',
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+              style: TextStyle(
+                  fontWeight: FontWeight.w500, fontSize: AppSizes.s18.sp),
             ),
             const SizedBox(
               height: 16,
             ),
-            const Text(
+            Text(
                 textAlign: TextAlign.center,
                 'Please enter your code that send to your\nemail address',
-                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
-            const SizedBox(
-              height: 30,
+                style: TextStyle(
+                    fontWeight: FontWeight.w400, fontSize: AppSizes.s14.sp)),
+            SizedBox(
+              height: AppSizes.s30.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(6, (index) {
                 return SizedBox(
-                  width: 60,
-                  height: 80,
+                  width: AppSizes.s60.w,
+                  height: AppSizes.s80.h,
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: TextFormField(
@@ -61,7 +65,7 @@ class VerifyOtp extends StatelessWidget {
                               .map((controller) => controller.text)
                               .join();
                           print(otp);
-                          verifyOtp(emailController.text,otp);
+                          verifyOtp(emailController.text, otp);
                         }
                       },
                       decoration: InputDecoration(
@@ -75,17 +79,17 @@ class VerifyOtp extends StatelessWidget {
               }),
             ),
             if (exception != null) ...[
-              const Padding(
-                padding: EdgeInsets.only(right: 20),
+              Padding(
+                padding: const EdgeInsets.only(right: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Icon(
                       Icons.error_outline,
                       color: Colors.red,
-                      size: 16,
+                      size: AppSizes.s16.sp,
                     ),
-                    Text('Invalid code',
+                    const Text('Invalid code',
                         style: TextStyle(
                           color: Colors.red,
                         ))
@@ -93,8 +97,8 @@ class VerifyOtp extends StatelessWidget {
                 ),
               )
             ],
-            const SizedBox(
-              height: 16,
+            SizedBox(
+              height: AppSizes.s16.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -20,8 +20,9 @@ import '../domain/usecases/authentication/forget_password_usecase.dart'
     as _i228;
 import '../domain/usecases/authentication/login_usecase.dart' as _i827;
 import '../domain/usecases/authentication/register_usecase.dart' as _i796;
-import '../presentaion/views/foreget_password_viewmodel.dart' as _i384;
-import '../presentaion/views/register_viewmodel.dart' as _i112;
+import '../presentaion/views/forget_password/foreget_password_viewmodel.dart' as _i384;
+import '../presentaion/views/login/login_viewmodel.dart' as _i668;
+import '../presentaion/views/register/register_viewmodel.dart' as _i112;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -45,6 +46,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i796.RegisterUsecase(gh<_i1053.AuthenticationRepo>()));
     gh.factory<_i112.RegisterViewmodel>(
         () => _i112.RegisterViewmodel(gh<_i796.RegisterUsecase>()));
+    gh.factory<_i668.LoginViewModel>(
+        () => _i668.LoginViewModel(gh<_i827.LoginUsecase>()));
     gh.factory<_i228.ForgetPasswordUsecase>(
         () => _i228.ForgetPasswordUsecase(gh<_i1053.AuthenticationRepo>()));
     gh.factory<_i384.ForegetPasswordViewmodel>(() =>

@@ -1,12 +1,20 @@
-import 'package:elevate_online_exam/di/di.dart';
-import 'package:elevate_online_exam/presentaion/views/forget_password_screen.dart';
-import 'package:elevate_online_exam/presentaion/views/login_screen.dart';
-import 'package:elevate_online_exam/presentaion/views/register_screen.dart';
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
-void main() {
+import 'package:elevate_online_exam/common/bloc_observer.dart';
+import 'package:elevate_online_exam/di/di.dart';
+import 'package:elevate_online_exam/presentaion/helper/app_theme.dart';
+import 'package:elevate_online_exam/presentaion/helper/router_helper.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+void main() async{
+WidgetsFlutterBinding.ensureInitialized();
+  await ScreenUtil.ensureScreenSize();
   runApp(const OnlineExam());
   configureDependencies();
+  Bloc.observer=SimpleBlocObserver();
+
 }
 
 class OnlineExam extends StatelessWidget {
@@ -14,17 +22,19 @@ class OnlineExam extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        inputDecorationTheme: const InputDecorationTheme(
-            hintStyle: TextStyle(fontWeight: FontWeight.w300),
-            labelStyle: TextStyle(color: Colors.black),
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            focusedBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-            border: OutlineInputBorder()),
+
+    return 
+  
+    ScreenUtilInit(
+    designSize:const Size(411,707),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+        theme: appTheme(),
+        onGenerateRoute:manageRoute,
+        initialRoute: 'login',
       ),
-      home: ForgetPasswordScreen(),
     );
-  }
+     }
 }

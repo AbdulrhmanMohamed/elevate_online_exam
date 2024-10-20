@@ -3,6 +3,7 @@ import 'package:elevate_online_exam/data/api/api_consts.dart';
 import 'package:elevate_online_exam/data/api/models/request/register_body.dart';
 import 'package:elevate_online_exam/data/api/models/response/auth_response/auth_response/auth_response.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart'; // Add the Pretty Dio Logger
 
 @lazySingleton
 class ApiManager {
@@ -12,11 +13,22 @@ class ApiManager {
     _dio = Dio(BaseOptions(
       baseUrl: ApiConsts.baseUrl,
     ));
+
+    // Add Pretty Dio Logger Interceptor
+    _dio.interceptors.add(PrettyDioLogger(
+      requestHeader: true,
+      request: true,
+      responseHeader: true,
+      responseBody: true,
+      error: true,
+     
+      maxWidth: 90, // Maximum width for the logs
+    ));
   }
 
   Future<AuthResponse?> login(String email, String password) async {
-    var response =
-        await _dio.post(ApiConsts.singinPath, data: {email, password});
+    var response = await _dio.post(ApiConsts.singinPath,
+        data: {"email": email, "password": password});
     return AuthResponse.fromJson(response.data);
   }
 

@@ -1,4 +1,6 @@
 import 'package:elevate_online_exam/di/di.dart';
+import 'package:elevate_online_exam/presentaion/helper/router_helper.dart';
+import 'package:elevate_online_exam/presentaion/helper/strings_manager.dart';
 import 'package:elevate_online_exam/presentaion/utils.dart';
 import 'package:elevate_online_exam/presentaion/views/login/email_and_password.dart';
 import 'package:elevate_online_exam/presentaion/views/login/login_screen.dart';
@@ -41,8 +43,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: const Text('Signed up successfully'),
                 action: SnackBarAction(
-                    label: 'login',
-                    onPressed: () => Navigator.pushNamed(context, 'login')),
+                    label: StringsManager.login,
+                    onPressed: () => Navigator.pushNamed(context, AppRoutes.login)),
               ));
             }
             if (state is ErrorState) {
@@ -144,7 +146,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       const SizedBox(height: sizedBoxHeight),
                       TextFormField(
-                        validator: email_validator,
+                        validator: emailValidator,
                         controller: _emailController,
                         decoration: const InputDecoration(
                           label: Text('Email'),
@@ -166,8 +168,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               validator: passwordValidator,
                               controller: _passwordController,
                               decoration: const InputDecoration(
-                                label: Text('Password'),
-                                hintText: 'Enter Password',
+                                label: Text(StringsManager.password),
+                                hintText: StringsManager.hintPassword,
                               ),
                             ),
                           ),
@@ -252,7 +254,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           const Text('Already have an account?'),
                           TextButton(
                               onPressed: () =>
-                                  Navigator.pushNamed(context, 'login'),
+                                  Navigator.pushNamed(context, AppRoutes.login),
                               child: const Text(
                                 'Login',
                                 style: TextStyle(

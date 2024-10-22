@@ -15,14 +15,21 @@ Route manageRoute(RouteSettings settings) {
     case "home":
       return MaterialPageRoute(builder: (context) => const HomeScreen());
     default:
-      return MaterialPageRoute(builder: (context) => NotFound());
+      return MaterialPageRoute(builder: (context) => notFound());
   }
 }
 
-Widget NotFound() {
-  return Scaffold(
+Widget  notFound() {
+  return const Scaffold(
     body: Center(
       child: Text("NO Route Found"),
     ),
   );
+}
+
+class AppRoutes{
+ static const login='/login';
+ static const register='/register';
+ static const forgetPassword='/forgetPassword';
+ static const home="/home";
 }

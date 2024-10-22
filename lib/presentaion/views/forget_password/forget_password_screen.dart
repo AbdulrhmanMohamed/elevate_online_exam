@@ -1,4 +1,5 @@
 import 'package:elevate_online_exam/di/di.dart';
+import 'package:elevate_online_exam/presentaion/helper/router_helper.dart';
 import 'package:elevate_online_exam/presentaion/views/forget_password/foreget_password_viewmodel.dart';
 import 'package:elevate_online_exam/presentaion/views/forget_password/verify_email.dart';
 import 'package:elevate_online_exam/presentaion/views/forget_password/verify_otp.dart';
@@ -58,7 +59,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               ));
             }
             if (state is SuccessState) {
-              Navigator.pushNamed(context, 'login');
+              Navigator.pushNamed(context, AppRoutes.login);
             }
             return Center(
                 child: VerifyEmail(

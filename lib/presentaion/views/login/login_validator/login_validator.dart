@@ -50,7 +50,7 @@ static String? _validatePassword(String ? password) {
 static String?_reportValidationState(ValidationState state){
    switch(state){
      case ValidationState.emptyEmail:
-        return StringsManager.issueEmptyEmail;
+        return StringsManager.issueEmptyEamil;
        
      case ValidationState.emptyPassword:
        return StringsManager.issueEmptyPassword;

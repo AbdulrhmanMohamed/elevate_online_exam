@@ -11,6 +11,7 @@
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../common/prefs_manager.dart' as _i298;
 import '../data/api/api_manager.dart' as _i93;
 import '../data/contracts/auth/auth_online_datasource.dart' as _i62;
 import '../data/datasource/auth/auth_online_datasource_impl.dart' as _i567;
@@ -20,9 +21,14 @@ import '../domain/usecases/authentication/forget_password_usecase.dart'
     as _i228;
 import '../domain/usecases/authentication/login_usecase.dart' as _i827;
 import '../domain/usecases/authentication/register_usecase.dart' as _i796;
-import '../presentaion/views/forget_password/foreget_password_viewmodel.dart' as _i384;
+import '../presentaion/views/forget_password/foreget_password_viewmodel.dart'
+    as _i138;
+import '../presentaion/views/forget_password/forget_password_validator/forget_password_validator.dart'
+    as _i322;
+import '../presentaion/views/login/login_validator/login_validator.dart'
+    as _i788;
 import '../presentaion/views/login/login_viewmodel.dart' as _i668;
-import '../presentaion/views/register/register_viewmodel.dart' as _i112;
+import '../presentaion/views/register/register_viewmodel.dart' as _i52;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -35,6 +41,10 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    gh.factory<_i298.CacheHelper>(() => _i298.CacheHelper());
+    gh.factory<_i788.LoginValidator>(() => _i788.LoginValidator());
+    gh.factory<_i322.ForgetPasswordValidator>(
+        () => _i322.ForgetPasswordValidator());
     gh.lazySingleton<_i93.ApiManager>(() => _i93.ApiManager());
     gh.factory<_i62.AuthOnlineDatasource>(() =>
         _i567.AuthOnlineDatasourceImpl(apiManager: gh<_i93.ApiManager>()));
@@ -44,14 +54,17 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i827.LoginUsecase(gh<_i1053.AuthenticationRepo>()));
     gh.factory<_i796.RegisterUsecase>(
         () => _i796.RegisterUsecase(gh<_i1053.AuthenticationRepo>()));
-    gh.factory<_i112.RegisterViewmodel>(
-        () => _i112.RegisterViewmodel(gh<_i796.RegisterUsecase>()));
+    gh.factory<_i52.RegisterViewmodel>(
+        () => _i52.RegisterViewmodel(gh<_i796.RegisterUsecase>()));
     gh.factory<_i668.LoginViewModel>(
         () => _i668.LoginViewModel(gh<_i827.LoginUsecase>()));
     gh.factory<_i228.ForgetPasswordUsecase>(
         () => _i228.ForgetPasswordUsecase(gh<_i1053.AuthenticationRepo>()));
-    gh.factory<_i384.ForegetPasswordViewmodel>(() =>
-        _i384.ForegetPasswordViewmodel(gh<_i228.ForgetPasswordUsecase>()));
+    gh.factory<_i138.ForegetPasswordViewmodel>(
+        () => _i138.ForegetPasswordViewmodel(
+              gh<_i228.ForgetPasswordUsecase>(),
+              gh<_i322.ForgetPasswordValidator>(),
+            ));
     return this;
   }
 }

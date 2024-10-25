@@ -19,7 +19,7 @@ class DontHaveAccount extends StatelessWidget {
           onTap: () => Navigator.pushNamed(context, AppRoutes.register),
           child: Text(
             "Signup",
-            style: Styles.get_regular(AppSizes.s16,AppColor.darkBlue)
+            style: Styles.get_regular(AppSizes.s16, AppColor.darkBlue)
                 .copyWith(decoration: TextDecoration.underline),
           ),
         )

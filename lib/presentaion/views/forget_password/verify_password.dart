@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 
 class VerifyPassword extends StatelessWidget {
-final Exception ? exception;
-TextEditingController  emailController;
-void Function(String email,String password) resetPassword;
-   VerifyPassword({super.key,this.exception,required this.resetPassword,required this.emailController});
-GlobalKey<FormState> passwordFormKey=GlobalKey<FormState>();
-TextEditingController passwordController=TextEditingController();
-TextEditingController confirmPasswordController=TextEditingController();
+  final Exception? exception;
+  TextEditingController emailController;
+  void Function(String email, String password) resetPassword;
+  VerifyPassword(
+      {super.key,
+      this.exception,
+      required this.resetPassword,
+      required this.emailController});
+  GlobalKey<FormState> passwordFormKey = GlobalKey<FormState>();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-var screenWidth= MediaQuery.of(context).size.width;
+    var screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Form(
@@ -53,8 +57,7 @@ var screenWidth= MediaQuery.of(context).size.width;
                 if (value == null || value.isEmpty) {
                   return 'Invalid';
                 }
-                if (passwordController.text !=
-                    confirmPasswordController.text) {
+                if (passwordController.text != confirmPasswordController.text) {
                   return "Password don't match";
                 }
 

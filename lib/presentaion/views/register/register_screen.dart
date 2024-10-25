@@ -3,7 +3,6 @@ import 'package:elevate_online_exam/presentaion/helper/router_helper.dart';
 import 'package:elevate_online_exam/presentaion/helper/strings_manager.dart';
 import 'package:elevate_online_exam/presentaion/utils.dart';
 import 'package:elevate_online_exam/presentaion/views/login/email_and_password.dart';
-import 'package:elevate_online_exam/presentaion/views/login/login_screen.dart';
 import 'package:elevate_online_exam/presentaion/views/register/register_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,7 +43,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 content: const Text('Signed up successfully'),
                 action: SnackBarAction(
                     label: StringsManager.login,
-                    onPressed: () => Navigator.pushNamed(context, AppRoutes.login)),
+                    onPressed: () =>
+                        Navigator.pushNamed(context, AppRoutes.login)),
               ));
             }
             if (state is ErrorState) {

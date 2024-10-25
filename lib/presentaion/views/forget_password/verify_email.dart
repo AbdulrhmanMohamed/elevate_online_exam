@@ -5,7 +5,10 @@ class VerifyEmail extends StatelessWidget {
   final Function(String email) sendOtp;
   final TextEditingController emailController;
   const VerifyEmail(
-      {super.key, required this.emailController, required this.sendOtp, this.exception});
+      {super.key,
+      required this.emailController,
+      required this.sendOtp,
+      this.exception});
 
   @override
   Widget build(BuildContext context) {

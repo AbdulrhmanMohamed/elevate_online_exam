@@ -2,18 +2,18 @@ import 'dart:developer';
 
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 @injectable
 class CacheHelper {
   static late SharedPreferences _preferences;
-  CacheHelper(){
-  //  init();
+  CacheHelper() {
+    //  init();
   }
   static Future<void> init() async {
     _preferences = await SharedPreferences.getInstance();
   }
 
-   Future<bool> saveData(
-      {required String key, required dynamic value}) async {
+  Future<bool> saveData({required String key, required dynamic value}) async {
     switch (value.runtimeType) {
       case const (String):
         return await _preferences.setString(key, value);
@@ -29,11 +29,9 @@ class CacheHelper {
     }
   }
 
- static dynamic getData({required String key}) {
-
-    var result= _preferences.get(key);
+  static dynamic getData({required String key}) {
+    var result = _preferences.get(key);
     log("Dynamic Result ,$result");
     return result;
   }
-
 }

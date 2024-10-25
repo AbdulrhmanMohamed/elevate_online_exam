@@ -61,7 +61,7 @@ class VerifyOtp extends StatelessWidget {
                               .map((controller) => controller.text)
                               .join();
                           print(otp);
-                          verifyOtp(emailController.text,otp);
+                          verifyOtp(emailController.text, otp);
                         }
                       },
                       decoration: InputDecoration(

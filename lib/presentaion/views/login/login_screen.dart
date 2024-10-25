@@ -48,7 +48,7 @@ class LoginScreen extends StatelessWidget {
             ),
             leading: IconButton(
               onPressed: () {
-                Navigator.pushNamed(context,AppRoutes.home);
+                Navigator.pushNamed(context, AppRoutes.home);
               },
               icon: const Icon(Icons.arrow_back),
             ),

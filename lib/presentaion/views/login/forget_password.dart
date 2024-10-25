@@ -8,14 +8,13 @@ import 'package:flutter/material.dart';
 class ForgetPassword extends StatelessWidget {
   const ForgetPassword({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         const Spacer(),
         GestureDetector(
-          onTap: () => Navigator.pushNamed(context,AppRoutes.forgetPassword),
+          onTap: () => Navigator.pushNamed(context, AppRoutes.forgetPassword),
           child: Text(
             StringsManager.forgetPassword,
             style: Styles.get_regular(AppSizes.s15, AppColor.gray)

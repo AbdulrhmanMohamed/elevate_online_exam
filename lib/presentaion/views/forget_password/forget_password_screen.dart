@@ -14,7 +14,7 @@ class ForgetPasswordScreen extends StatelessWidget {
 
   ForegetPasswordViewmodel viewModel = getIt.get<ForegetPasswordViewmodel>();
   final TextEditingController _emailController = TextEditingController();
- 
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -71,8 +71,6 @@ class ForgetPasswordScreen extends StatelessWidget {
       ),
     );
   }
-
- 
 
   void sendOtp(String email) {
     viewModel.doIntent(VerifyEmailIntent(email));

@@ -5,17 +5,19 @@ import 'package:dio/dio.dart';
 import 'package:elevate_online_exam/common/api_result.dart';
 import 'package:elevate_online_exam/data/api/api_error_handler.dart';
 
-Future<Result<T>> executeApi<T>(Future<T> Function() apiCall) async {
-  try {
+
+Future<Result<T>> executeApi<T>( Future<T> Function() apiCall ) async{
+  try{
     var result = await apiCall.call();
     return Success(result);
-  } on TimeoutException {
+
+  }on TimeoutException catch(ex){
     return Fail(NoInternetError());
-  } on IOException {
+  }on IOException catch(ex){
     return Fail(NoInternetError());
-  } on DioException catch (ex) {
+  }on DioException catch(ex){
     return Fail(DioHttpException(ex));
-  } on Exception catch (ex) {
+  }on Exception catch(ex){
     return Fail(ex);
   }
 }

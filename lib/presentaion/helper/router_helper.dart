@@ -2,7 +2,6 @@ import 'package:elevate_online_exam/presentaion/views/forget_password/forget_pas
 import 'package:elevate_online_exam/presentaion/views/home/home_screen.dart';
 import 'package:elevate_online_exam/presentaion/views/login/login_screen.dart';
 import 'package:elevate_online_exam/presentaion/views/register/register_screen.dart';
-import 'package:elevate_online_exam/presentaion/views/subject/subject_screen.dart';
 import 'package:flutter/material.dart';
 
 Route manageRoute(RouteSettings settings) {
@@ -13,27 +12,17 @@ Route manageRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => const RegisterScreen());
     case "forgetPassword":
       return MaterialPageRoute(builder: (context) => ForgetPasswordScreen());
-    case "subject":
-      return MaterialPageRoute(builder: (context) =>  SubjectScreen());
     case "home":
-      return MaterialPageRoute(builder: (context) =>  HomeScreen());
+      return MaterialPageRoute(builder: (context) => const HomeScreen());
     default:
-      return MaterialPageRoute(builder: (context) => notFound());
+      return MaterialPageRoute(builder: (context) => NotFound());
   }
 }
 
-Widget notFound() {
-  return const Scaffold(
+Widget NotFound() {
+  return Scaffold(
     body: Center(
       child: Text("NO Route Found"),
     ),
   );
-}
-
-class AppRoutes {
-  static const login = 'login';
-  static const register = 'register';
-  static const forgetPassword = 'forgetPassword';
-  static const home = "home";
-  static const subject = "subject";
 }

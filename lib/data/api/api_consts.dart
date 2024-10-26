@@ -5,5 +5,4 @@ class ApiConsts {
   static String forgetPasswordPath = "/v1/auth/forgotPassword";
   static String verifyResetCodePath = "/v1/auth/verifyResetCode";
   static String resetPasswordPath = "/v1/auth/resetPassword";
-  static String getSubjects="/v1/subjects";
 }

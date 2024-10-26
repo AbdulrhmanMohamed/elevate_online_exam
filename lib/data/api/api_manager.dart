@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:elevate_online_exam/data/api/api_consts.dart';
 import 'package:elevate_online_exam/data/api/models/request/register_body.dart';
 import 'package:elevate_online_exam/data/api/models/response/auth_response/auth_response/auth_response.dart';
-import 'package:elevate_online_exam/data/api/models/response/subject_response/subject_response.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart'; // Add the Pretty Dio Logger
 
@@ -22,7 +21,7 @@ class ApiManager {
       responseHeader: true,
       responseBody: true,
       error: true,
-
+     
       maxWidth: 90, // Maximum width for the logs
     ));
   }
@@ -62,11 +61,5 @@ class ApiManager {
     var response = await _dio.put(ApiConsts.resetPasswordPath,
         data: {"email": email, "newPassword": newPassword});
     return AuthResponse.fromJson(response.data);
-  }
-
-  Future<SubjectResponse?> getSubjects()async{
-  
-   var response=await _dio.get(ApiConsts.getSubjects,options: Options(headers: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MGQ2YTI4NzA5NjZiNDdkMjk4MjNiMCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzI5Njg4NDg5fQ.bcZv9oeS_wuefttLm3cApV4LQcwe62KmJoMKYhf5BwY"}));
-   return SubjectResponse.fromJson(response.data);
   }
 }

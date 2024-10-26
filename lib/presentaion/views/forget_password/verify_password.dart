@@ -5,25 +5,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class VerifyPassword extends StatelessWidget {
   final Exception? exception;
-  final void Function(String password) resetPassword;
-  final GlobalKey<FormState> passwordFormKey;
-  final TextEditingController passwordController;
-  final TextEditingController confirmPasswordController;
-  final String? Function(String?) passwordValidator;
-  final String? Function(String?) confirmPasswordValidator;
-  const VerifyPassword({
-    super.key,
-    this.exception,
-    required this.resetPassword,
-    required this.passwordFormKey,
-    required this.passwordController,
-    required this.confirmPasswordController,
-    required this.passwordValidator,
-    required this.confirmPasswordValidator,
-  });
-
+  TextEditingController emailController;
+  void Function(String email, String password) resetPassword;
+  VerifyPassword(
+      {super.key,
+      this.exception,
+      required this.resetPassword,
+      required this.emailController});
+  GlobalKey<FormState> passwordFormKey = GlobalKey<FormState>();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Form(
@@ -48,7 +42,12 @@ class VerifyPassword extends StatelessWidget {
               height: AppSizes.s30.h,
             ),
             TextFormField(
-              validator: passwordValidator,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Invalid Password';
+                }
+                return null;
+              },
               controller: passwordController,
               decoration: InputDecoration(
                   label: const Text('New password'),
@@ -59,7 +58,16 @@ class VerifyPassword extends StatelessWidget {
               height: AppSizes.s16.h,
             ),
             TextFormField(
-              validator: confirmPasswordValidator,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Invalid';
+                }
+                if (passwordController.text != confirmPasswordController.text) {
+                  return "Password don't match";
+                }
+
+                return null;
+              },
               controller: confirmPasswordController,
               decoration: const InputDecoration(
                 label: Text('Confirm password'),
@@ -70,11 +78,10 @@ class VerifyPassword extends StatelessWidget {
               height: AppSizes.s50.h,
             ),
             AppButton(
-              text:
-                  const Text('Continue', style: TextStyle(color: Colors.white)),
+              text: const Text('Continue'),
               onPressed: () {
                 if (passwordFormKey.currentState!.validate()) {
-                  resetPassword(passwordController.text);
+                  resetPassword(emailController.text, passwordController.text);
                 }
               },
             )

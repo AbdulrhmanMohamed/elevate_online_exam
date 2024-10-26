@@ -1,5 +1,6 @@
 import 'package:elevate_online_exam/presentaion/helper/app_sizes.dart';
 import 'package:elevate_online_exam/presentaion/helper/color_consts.dart';
+import 'package:elevate_online_exam/presentaion/helper/text_styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 

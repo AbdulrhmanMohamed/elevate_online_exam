@@ -6,18 +6,19 @@ class User {
   String? password;
   String? rePassword;
   String? phone;
-  bool? isVerified;
-  String? token;
-  User(
-      {this.username,
-      this.firstName,
-      this.lastName,
-      this.email,
-      this.password,
-      this.rePassword,
-      this.phone,
-      this.isVerified,
-      this.token});
+  bool ? isVerified;
+  String ? token;
+  User({
+    this.username,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.password,
+    this.rePassword,
+    this.phone,
+    this.isVerified,
+    this.token
+  });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         username: json['username'] as String?,
@@ -29,6 +30,7 @@ class User {
         phone: json['phone'] as String?,
         isVerified: json['isverified'] as bool?,
         token: json['token'] as String?,
+        
       );
 
   Map<String, dynamic> toJson() => {

@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 
-class DioHttpException implements Exception {
+
+class DioHttpException implements Exception{
   DioException? exception;
   DioHttpException(this.exception);
 }
+class NoInternetError implements Exception{
 
-class NoInternetError implements Exception {}
+}

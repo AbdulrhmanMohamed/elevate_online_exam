@@ -32,7 +32,6 @@ class ForgetPasswordValidator {
       case ForgetPasswordValidTypes.confirmPassword:
         return _validateConfirmPassword();
       case ForgetPasswordValidTypes.otp:
-      // tbd
       default:
         return (String? value) {
           return null;

@@ -12,4 +12,10 @@ class StringsManager {
   static const email = "Email";
   static const password = "Password";
   static const forgetPassword = "forgetPassword";
+  static const issuePasswordNotMatch = "Password not match";
+  static const issueEmptyUsername = "Please enter username";
+  static const issueEmptyFirstname = "Please enter firstname";
+  static const issueEmptyLastname = "Please enter lastname";
+  static const issueEmptyPhoneNumber = "Please enter phone number";
+  static const issueInvalidPhoneNumber = "Please Enter Valid phone number";
 }

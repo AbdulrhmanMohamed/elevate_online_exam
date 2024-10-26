@@ -33,6 +33,8 @@ import '../presentaion/views/home/home_viewModel.dart' as _i52;
 import '../presentaion/views/login/login_validator/login_validator.dart'
     as _i788;
 import '../presentaion/views/login/login_viewmodel.dart' as _i668;
+import '../presentaion/views/register/register_validator/register_validator.dart'
+    as _i928;
 import '../presentaion/views/register/register_viewmodel.dart' as _i52;
 import '../presentaion/views/subject/view_model/subject_viewModel.dart'
     as _i784;
@@ -51,6 +53,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i298.CacheHelper>(() => _i298.CacheHelper());
     gh.factory<_i788.LoginValidator>(() => _i788.LoginValidator());
     gh.factory<_i52.HomeViewmodel>(() => _i52.HomeViewmodel());
+    gh.factory<_i928.RegisterValidator>(() => _i928.RegisterValidator());
     gh.lazySingleton<_i93.ApiManager>(() => _i93.ApiManager());
     gh.factory<_i847.SubjectOnlineDatasource>(
         () => _i514.SubjectOnlineDatasourceImpl(gh<_i93.ApiManager>()));
@@ -68,8 +71,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i796.RegisterUsecase(gh<_i1053.AuthenticationRepo>()));
     gh.factory<_i784.SubjectViewmodel>(
         () => _i784.SubjectViewmodel(gh<_i424.GetSubjectsUsecase>()));
-    gh.factory<_i52.RegisterViewmodel>(
-        () => _i52.RegisterViewmodel(gh<_i796.RegisterUsecase>()));
+    gh.factory<_i52.RegisterViewmodel>(() => _i52.RegisterViewmodel(
+          gh<_i796.RegisterUsecase>(),
+          gh<_i928.RegisterValidator>(),
+        ));
     gh.factory<_i668.LoginViewModel>(
         () => _i668.LoginViewModel(gh<_i827.LoginUsecase>()));
     gh.factory<_i228.ForgetPasswordUsecase>(

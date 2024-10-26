@@ -1,4 +1,7 @@
+import 'package:elevate_online_exam/presentaion/helper/app_sizes.dart';
+import 'package:elevate_online_exam/presentaion/widgets/app_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class VerifyPassword extends StatelessWidget {
   final Exception? exception;
@@ -22,19 +25,21 @@ class VerifyPassword extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               'Reset password',
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+              style: TextStyle(
+                  fontWeight: FontWeight.w500, fontSize: AppSizes.s18.sp),
             ),
-            const SizedBox(
-              height: 16,
+            SizedBox(
+              height: AppSizes.s16.h,
             ),
-            const Text(
+            Text(
                 textAlign: TextAlign.center,
                 'Password must not be empty and must contain\n6 characters with upper case letter and one\nnumber at least ',
-                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
-            const SizedBox(
-              height: 30,
+                style: TextStyle(
+                    fontWeight: FontWeight.w400, fontSize: AppSizes.s14.sp)),
+            SizedBox(
+              height: AppSizes.s30.h,
             ),
             TextFormField(
               validator: (value) {
@@ -49,8 +54,8 @@ class VerifyPassword extends StatelessWidget {
                   hintText: 'Enter your password',
                   errorText: exception != null ? 'Password is invalid ' : null),
             ),
-            const SizedBox(
-              height: 16,
+            SizedBox(
+              height: AppSizes.s16.h,
             ),
             TextFormField(
               validator: (value) {
@@ -69,25 +74,17 @@ class VerifyPassword extends StatelessWidget {
                 hintText: 'Confirm password',
               ),
             ),
-            const SizedBox(
-              height: 50,
-            ),
             SizedBox(
-                height: 48,
-                width: screenWidth,
-                child: ElevatedButton(
-                    onPressed: () {
-                      if (passwordFormKey.currentState!.validate()) {
-                        resetPassword(
-                            emailController.text, passwordController.text);
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: exception == null
-                            ? const Color(0xFF02369C)
-                            : const Color(0xFF878787),
-                        foregroundColor: Colors.white),
-                    child: const Text('Continue')))
+              height: AppSizes.s50.h,
+            ),
+            AppButton(
+              text: const Text('Continue'),
+              onPressed: () {
+                if (passwordFormKey.currentState!.validate()) {
+                  resetPassword(emailController.text, passwordController.text);
+                }
+              },
+            )
           ],
         ),
       ),

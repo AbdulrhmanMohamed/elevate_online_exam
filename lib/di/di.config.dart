@@ -54,17 +54,19 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i298.CacheHelper>(() => _i298.CacheHelper());
     gh.factory<_i788.LoginValidator>(() => _i788.LoginValidator());
+    gh.factory<_i52.HomeViewmodel>(() => _i52.HomeViewmodel());
     gh.factory<_i322.ForgetPasswordValidator>(
         () => _i322.ForgetPasswordValidator());
-    gh.factory<_i52.HomeViewmodel>(() => _i52.HomeViewmodel());
     gh.factory<_i928.RegisterValidator>(() => _i928.RegisterValidator());
     gh.lazySingleton<_i93.ApiManager>(() => _i93.ApiManager());
     gh.factory<_i847.SubjectOnlineDatasource>(
         () => _i514.SubjectOnlineDatasourceImpl(gh<_i93.ApiManager>()));
-    gh.factory<_i62.AuthOnlineDatasource>(() =>
-        _i567.AuthOnlineDatasourceImpl(apiManager: gh<_i93.ApiManager>()));
     gh.factory<_i144.SubjectRepo>(
         () => _i833.SubjectRepoImpl(gh<_i847.SubjectOnlineDatasource>()));
+    gh.factory<_i62.AuthOnlineDatasource>(() => _i567.AuthOnlineDatasourceImpl(
+          apiManager: gh<_i93.ApiManager>(),
+          cacheHelper: gh<_i298.CacheHelper>(),
+        ));
     gh.factory<_i424.GetSubjectsUsecase>(
         () => _i424.GetSubjectsUsecase(gh<_i144.SubjectRepo>()));
     gh.factory<_i1053.AuthenticationRepo>(

@@ -70,7 +70,8 @@ class VerifyPassword extends StatelessWidget {
               height: AppSizes.s50.h,
             ),
             AppButton(
-              text: const Text('Continue'),
+              text:
+                  const Text('Continue', style: TextStyle(color: Colors.white)),
               onPressed: () {
                 if (passwordFormKey.currentState!.validate()) {
                   resetPassword(passwordController.text);

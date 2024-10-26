@@ -55,7 +55,10 @@ class VerifyEmail extends StatelessWidget {
               height: AppSizes.s50.h,
             ),
             AppButton(
-              text: const Text('Continune'),
+              text: const Text(
+                'Continune',
+                style: TextStyle(color: Colors.white),
+              ),
               onPressed: () {
                 sendOtp(emailController.text);
               },

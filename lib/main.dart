@@ -1,11 +1,7 @@
-import 'dart:developer';
-
 import 'package:elevate_online_exam/common/bloc_observer.dart';
 import 'package:elevate_online_exam/di/di.dart';
 import 'package:elevate_online_exam/presentaion/helper/app_theme.dart';
 import 'package:elevate_online_exam/presentaion/helper/router_helper.dart';
-import 'package:elevate_online_exam/presentaion/views/forget_password/forget_password_screen.dart';
-import 'package:elevate_online_exam/presentaion/views/login/forget_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,7 +26,8 @@ class OnlineExam extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: appTheme(),
-        home: ForgetPasswordScreen(),
+        onGenerateRoute: manageRoute,
+        initialRoute: AppRoutes.home,
       ),
     );
   }

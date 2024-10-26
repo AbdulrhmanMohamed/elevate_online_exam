@@ -7,19 +7,22 @@ class VerifyEmail extends StatelessWidget {
   final Exception? exception;
   final Function(String email) sendOtp;
   final TextEditingController emailController;
+  final String? Function(String?) emailValidator;
+  final GlobalKey<FormState> formKey;
   const VerifyEmail(
       {super.key,
       required this.emailController,
+      required this.emailValidator,
       required this.sendOtp,
+      required this.formKey,
       this.exception});
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-
     return Padding(
       padding: const EdgeInsets.all(AppSizes.s15),
       child: Form(
+        key: formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -40,12 +43,7 @@ class VerifyEmail extends StatelessWidget {
               height: AppSizes.s30.h,
             ),
             TextFormField(
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Invalid Email';
-                }
-                return null;
-              },
+              validator: emailValidator,
               controller: emailController,
               decoration: InputDecoration(
                   label: const Text('Email'),
@@ -57,8 +55,13 @@ class VerifyEmail extends StatelessWidget {
               height: AppSizes.s50.h,
             ),
             AppButton(
-              text: const Text('Continune'),
-              onPressed: sendOtp(emailController.text),
+              text: const Text(
+                'Continune',
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () {
+                sendOtp(emailController.text);
+              },
             )
           ],
         ),

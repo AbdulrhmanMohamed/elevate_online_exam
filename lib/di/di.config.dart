@@ -29,6 +29,8 @@ import '../domain/usecases/authentication/register_usecase.dart' as _i796;
 import '../domain/usecases/subject/get_subjects_usecase.dart' as _i424;
 import '../presentaion/views/forget_password/foreget_password_viewmodel.dart'
     as _i138;
+import '../presentaion/views/forget_password/forget_password_validator/forget_password_validator.dart'
+    as _i322;
 import '../presentaion/views/home/home_viewModel.dart' as _i52;
 import '../presentaion/views/login/login_validator/login_validator.dart'
     as _i788;
@@ -52,6 +54,8 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i298.CacheHelper>(() => _i298.CacheHelper());
     gh.factory<_i788.LoginValidator>(() => _i788.LoginValidator());
+    gh.factory<_i322.ForgetPasswordValidator>(
+        () => _i322.ForgetPasswordValidator());
     gh.factory<_i52.HomeViewmodel>(() => _i52.HomeViewmodel());
     gh.factory<_i928.RegisterValidator>(() => _i928.RegisterValidator());
     gh.lazySingleton<_i93.ApiManager>(() => _i93.ApiManager());
@@ -79,8 +83,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i668.LoginViewModel(gh<_i827.LoginUsecase>()));
     gh.factory<_i228.ForgetPasswordUsecase>(
         () => _i228.ForgetPasswordUsecase(gh<_i1053.AuthenticationRepo>()));
-    gh.factory<_i138.ForegetPasswordViewmodel>(() =>
-        _i138.ForegetPasswordViewmodel(gh<_i228.ForgetPasswordUsecase>()));
+    gh.factory<_i138.ForegetPasswordViewmodel>(
+        () => _i138.ForegetPasswordViewmodel(
+              gh<_i228.ForgetPasswordUsecase>(),
+              gh<_i322.ForgetPasswordValidator>(),
+            ));
     return this;
   }
 }

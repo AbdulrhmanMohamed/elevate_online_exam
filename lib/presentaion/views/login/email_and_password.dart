@@ -1,5 +1,6 @@
 import 'package:elevate_online_exam/presentaion/helper/app_sizes.dart';
 import 'package:elevate_online_exam/presentaion/helper/spacing.dart';
+import 'package:elevate_online_exam/presentaion/helper/strings_manager.dart';
 import 'package:elevate_online_exam/presentaion/widgets/app_text_form_field.dart';
 import 'package:flutter/material.dart';
 
@@ -16,9 +17,10 @@ class EmailAndPassword extends StatefulWidget {
   State<EmailAndPassword> createState() => _EmailAndPasswordState();
 }
 
-String? email_validator(String? value) {
-  if (value != null && (value.isEmpty || !value.contains("@")))
-    return "Please Enter Valid Email";
+String? emailValidator(String? value) {
+  if (value != null && (value.isEmpty || !value.contains("@"))) {
+    return StringsManager.issueValidEmail;
+  }
   return null;
 }
 
@@ -26,9 +28,10 @@ String? passwordValidator(String? value) {
   final RegExp passwordRegExp =
       RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$');
 
-  if (value!.isEmpty) return "Password Should Not Be Empty";
-  if (!passwordRegExp.hasMatch(value))
-    return "Password should have should have numbers & characters & special letters not less than 8 characters";
+  if (value!.isEmpty) return StringsManager.issueEmptyPassword;
+  if (!passwordRegExp.hasMatch(value)) {
+    return StringsManager.issuePasswordPattern;
+  }
 
   return null;
 }
@@ -39,18 +42,18 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
     return Column(
       children: [
         AppTextFormField(
-          hintText: "Enter Your Email",
-          label: const Text("Email"),
+          hintText: StringsManager.hintEmail,
+          label: const Text(StringsManager.email),
           isError: widget.labelError,
           keyboardType: TextInputType.emailAddress,
-          validator: email_validator,
+          validator: emailValidator,
           controller: widget.emailController,
         ),
         vertical_space(AppSizes.s20),
         AppTextFormField(
           isError: widget.labelError,
-          hintText: "Enter Your Password",
-          label: const Text("Password"),
+          hintText: StringsManager.hintPassword,
+          label: const Text(StringsManager.password),
           validator: passwordValidator,
           controller: widget.passwordController,
         ),

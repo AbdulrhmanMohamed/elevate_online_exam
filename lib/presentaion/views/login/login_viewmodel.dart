@@ -11,7 +11,7 @@ class LoginViewModel extends Cubit<LoginState> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  LoginUsecase _loginUsecase;
+  final LoginUsecase _loginUsecase;
   LoginViewModel(this._loginUsecase) : super(LoginInitialState());
 
   doIntent(LoginInent intent) {
@@ -26,8 +26,7 @@ class LoginViewModel extends Cubit<LoginState> {
   void loginWithEmailAndPassowrd(LoginWithEmailAndPasswordIntent intent) async {
     if (formKey.currentState!.validate()) {
       emit(LoginLoadingState());
-      var result =
-          await _loginUsecase.invoke(intent.email, intent.password);
+      var result = await _loginUsecase.invoke(intent.email, intent.password);
       switch (result) {
         case Success<User?>():
           emit(LoginSuccessState(result.data));

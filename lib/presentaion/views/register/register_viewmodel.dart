@@ -1,14 +1,18 @@
 import 'package:elevate_online_exam/common/api_result.dart';
 import 'package:elevate_online_exam/domain/models/user.dart';
 import 'package:elevate_online_exam/domain/usecases/authentication/register_usecase.dart';
+import 'package:elevate_online_exam/presentaion/views/register/register_validator/register_field_type_enum.dart';
+import 'package:elevate_online_exam/presentaion/views/register/register_validator/register_validator.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
 class RegisterViewmodel extends Cubit<RegisterState> {
   RegisterUsecase registerUsecase;
-
-  RegisterViewmodel(this.registerUsecase) : super(InitialState());
+  RegisterValidator registerValidator;
+  RegisterViewmodel(this.registerUsecase, this.registerValidator)
+      : super(InitialState());
   void doIntent(RegisterScreenIntent intent) {
     switch (intent) {
       case RegisterIntent():
@@ -16,17 +20,49 @@ class RegisterViewmodel extends Cubit<RegisterState> {
     }
   }
 
+  GlobalKey<FormState> formKey() {
+    return registerValidator.formKey;
+  }
+
+  TextEditingController fieldController(RegisterFormFieldType type) {
+    switch (type) {
+      case RegisterFormFieldType.username:
+        return registerValidator.usernameController;
+      case RegisterFormFieldType.firstname:
+        return registerValidator.firstnameController;
+      case RegisterFormFieldType.lastname:
+        return registerValidator.lastnameController;
+      case RegisterFormFieldType.email:
+        return registerValidator.emailController;
+      case RegisterFormFieldType.password:
+        return registerValidator.passwordController;
+      case RegisterFormFieldType.confirmPassword:
+        return registerValidator.confirmPasswordController;
+      case RegisterFormFieldType.phone:
+        return registerValidator.phoneNumberController;
+    }
+  }
+
+  FormFieldValidator<String?> validateField(RegisterFormFieldType type) {
+    return registerValidator.validate(type);
+  }
+
   void _register(RegisterIntent intent) async {
     emit(LoadingState());
+    User? user = registerValidator.validateForm();
+    if (user == null) {
+      emit(InitialState());
+      return;
+    }
 
     var result = await registerUsecase.invoke(
-        intent.username,
-        intent.firstname,
-        intent.lastname,
-        intent.email,
-        intent.password,
-        intent.confirmPassword,
-        intent.phonenumber);
+        user.username!,
+        user.firstName!,
+        user.lastName!,
+        user.email!,
+        user.password!,
+        user.rePassword!,
+        user.phone!);
     switch (result) {
       case Success<User?>():
         {
@@ -43,15 +79,7 @@ class RegisterViewmodel extends Cubit<RegisterState> {
 sealed class RegisterScreenIntent {}
 
 class RegisterIntent extends RegisterScreenIntent {
-  String username;
-  String firstname;
-  String lastname;
-  String email;
-  String password;
-  String confirmPassword;
-  String phonenumber;
-  RegisterIntent(this.username, this.firstname, this.lastname, this.email,
-      this.password, this.confirmPassword, this.phonenumber);
+  RegisterIntent();
 }
 
 sealed class RegisterState {}

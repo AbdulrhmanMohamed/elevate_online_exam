@@ -1,7 +1,9 @@
 import 'package:elevate_online_exam/di/di.dart';
 import 'package:elevate_online_exam/presentaion/helper/app_sizes.dart';
+import 'package:elevate_online_exam/presentaion/helper/router_helper.dart';
+import 'package:elevate_online_exam/presentaion/helper/strings_manager.dart';
 import 'package:elevate_online_exam/presentaion/utils.dart';
-import 'package:elevate_online_exam/presentaion/views/login/email_and_password.dart';
+import 'package:elevate_online_exam/presentaion/views/register/register_validator/register_field_type_enum.dart';
 import 'package:elevate_online_exam/presentaion/views/register/register_viewmodel.dart';
 import 'package:elevate_online_exam/presentaion/widgets/app_button.dart';
 import 'package:flutter/material.dart';
@@ -16,22 +18,13 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _firstnameController = TextEditingController();
-  final TextEditingController _lastnameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
-  final TextEditingController _phoneNumberController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
   String? _usernameError;
   String? _emailError;
   RegisterViewmodel viewModel = getIt.get<RegisterViewmodel>();
-  RegExp phoneRegex = RegExp(r'^01[0125][0-9]{8}$');
+
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
+    final GlobalKey<FormState> _formKey = viewModel.formKey();
     return BlocProvider(
         create: (context) => viewModel,
         child: BlocListener<RegisterViewmodel, RegisterState>(
@@ -41,8 +34,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: const Text('Signed up successfully'),
                 action: SnackBarAction(
-                    label: 'login',
-                    onPressed: () => Navigator.pushNamed(context, 'login')),
+                    label: StringsManager.login,
+                    onPressed: () =>
+                        Navigator.pushNamed(context, AppRoutes.login)),
               ));
             }
             if (state is ErrorState) {
@@ -55,15 +49,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 _emailError = 'email already exists';
                 _formKey.currentState!.validate();
               }
-              // showDialog(
-              //   context: context,
-              //   builder: (context) => AlertDialog(
-              //     content: SizedBox(
-              //         height: 100,
-              //         width: 100,
-              //         child: Center(child: Text(message))),
-              //   ),
-              // );
             }
           },
           child: Scaffold(
@@ -81,20 +66,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Column(
                     children: [
                       TextFormField(
-                        controller: _usernameController,
-                        validator: (value) {
-                          if (_usernameError != null) {
-                            return _usernameError;
-                          }
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter username';
-                          }
-                          return null;
-                        },
-                        decoration: const InputDecoration(
-                          label: Text('User name'),
-                          hintText: 'Enter your user name',
-                        ),
+                        controller: viewModel
+                            .fieldController(RegisterFormFieldType.username),
+                        validator: viewModel
+                            .validateField(RegisterFormFieldType.username),
+                        decoration: InputDecoration(
+                            label: const Text('User name'),
+                            hintText: 'Enter your user name',
+                            errorText: _usernameError),
                         onChanged: (value) {
                           setState(() {
                             _usernameError =
@@ -109,13 +88,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         children: [
                           Expanded(
                             child: TextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter firstname';
-                                }
-                                return null;
-                              },
-                              controller: _firstnameController,
+                              controller: viewModel.fieldController(
+                                  RegisterFormFieldType.firstname),
+                              validator: viewModel.validateField(
+                                  RegisterFormFieldType.firstname),
                               decoration: const InputDecoration(
                                 label: Text('First name'),
                                 hintText: 'Enter first name',
@@ -127,13 +103,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           Expanded(
                             child: TextFormField(
-                              controller: _lastnameController,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter lastname';
-                                }
-                                return null;
-                              },
+                              controller: viewModel.fieldController(
+                                  RegisterFormFieldType.lastname),
+                              validator: viewModel.validateField(
+                                  RegisterFormFieldType.lastname),
                               decoration: const InputDecoration(
                                 label: Text('Last name'),
                                 hintText: 'Enter last name',
@@ -144,11 +117,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       SizedBox(height: AppSizes.s24.h),
                       TextFormField(
-                        validator: email_validator,
-                        controller: _emailController,
-                        decoration: const InputDecoration(
-                          label: Text('Email'),
+                        controller: viewModel
+                            .fieldController(RegisterFormFieldType.email),
+                        validator: viewModel
+                            .validateField(RegisterFormFieldType.email),
+                        decoration: InputDecoration(
+                          label: const Text('Email'),
                           hintText: 'Enter your email',
+                          errorText: _emailError,
                         ),
                         onChanged: (value) {
                           setState(() {
@@ -163,11 +139,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         children: [
                           Expanded(
                             child: TextFormField(
-                              validator: passwordValidator,
-                              controller: _passwordController,
+                              controller: viewModel.fieldController(
+                                  RegisterFormFieldType.password),
+                              validator: viewModel.validateField(
+                                  RegisterFormFieldType.password),
                               decoration: const InputDecoration(
-                                label: Text('Password'),
-                                hintText: 'Enter Password',
+                                label: Text(StringsManager.password),
+                                hintText: StringsManager.hintPassword,
                               ),
                             ),
                           ),
@@ -176,16 +154,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           Expanded(
                             child: TextFormField(
-                              controller: _confirmPasswordController,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please confirm password';
-                                }
-                                if (_passwordController.text != value) {
-                                  return "Password not matched";
-                                }
-                                return null;
-                              },
+                              controller: viewModel.fieldController(
+                                  RegisterFormFieldType.confirmPassword),
+                              validator: viewModel.validateField(
+                                  RegisterFormFieldType.confirmPassword),
                               decoration: const InputDecoration(
                                 label: Text('Confirm password'),
                                 hintText: 'Confirm password',
@@ -198,16 +170,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: AppSizes.s24.h,
                       ),
                       TextFormField(
-                        controller: _phoneNumberController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter phone';
-                          }
-                          if (!phoneRegex.hasMatch(value)) {
-                            return 'invalid phone number';
-                          }
-                          return null;
-                        },
+                        controller: viewModel
+                            .fieldController(RegisterFormFieldType.phone),
+                        validator: viewModel
+                            .validateField(RegisterFormFieldType.phone),
                         decoration: const InputDecoration(
                           label: Text('Phone number'),
                           hintText: 'Enter phone number',
@@ -228,7 +194,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 }
                               default:
                                 {
-                                  return const Text('Signup');
+                                  return const Text(
+                                    'Signup',
+                                    style: TextStyle(color: Colors.white),
+                                  );
                                 }
                             }
                           },
@@ -244,7 +213,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           const Text('Already have an account?'),
                           TextButton(
                               onPressed: () =>
-                                  Navigator.pushNamed(context, 'login'),
+                                  Navigator.pushNamed(context, AppRoutes.login),
                               child: const Text(
                                 'Login',
                                 style: TextStyle(
@@ -263,15 +232,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void register() {
-    if (_formKey.currentState!.validate()) {
-      viewModel.doIntent(RegisterIntent(
-          _usernameController.text,
-          _firstnameController.text,
-          _lastnameController.text,
-          _emailController.text,
-          _passwordController.text,
-          _confirmPasswordController.text,
-          _phoneNumberController.text));
-    }
+    viewModel.doIntent(RegisterIntent());
   }
 }

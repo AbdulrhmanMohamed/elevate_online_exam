@@ -1,16 +1,13 @@
 import 'package:elevate_online_exam/common/api_result.dart';
 import 'package:elevate_online_exam/domain/models/user.dart';
 import 'package:elevate_online_exam/domain/usecases/authentication/forget_password_usecase.dart';
-import 'package:elevate_online_exam/presentaion/views/forget_password/forget_password_validator/forget_password_validator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
 class ForegetPasswordViewmodel extends Cubit<ForgetPasswordState> {
   ForgetPasswordUsecase forgetPasswordUsecase;
-  ForgetPasswordValidator forgetPasswordValidator;
-  ForegetPasswordViewmodel(
-      this.forgetPasswordUsecase, this.forgetPasswordValidator)
+  ForegetPasswordViewmodel(this.forgetPasswordUsecase)
       : super(InitialState(null));
 
   void doIntent(ForgetPasswordScreenIntent intent) {
@@ -32,11 +29,7 @@ class ForegetPasswordViewmodel extends Cubit<ForgetPasswordState> {
 
   Future<void> _checkEmail(VerifyEmailIntent intent) async {
     emit(LoadingState());
-    if (!forgetPasswordValidator.emailFormKey.currentState!.validate()) {
-      emit(InitialState(null));
-      return;
-    }
-    print(intent.email);
+
     var result = await forgetPasswordUsecase.forgotPassword(intent.email);
     switch (result) {
       case Success<String>():
@@ -56,7 +49,7 @@ class ForegetPasswordViewmodel extends Cubit<ForgetPasswordState> {
     switch (result) {
       case Success<bool>():
         {
-          emit(ResetPasswordState(null));
+          emit(ResetPasswordState(intent.email, null));
         }
       case Fail<bool>():
         {
@@ -68,12 +61,9 @@ class ForegetPasswordViewmodel extends Cubit<ForgetPasswordState> {
   Future<void> _resetPassword(ResetPasswordIntent intent) async {
     emit(LoadingState());
     print(intent.newPassword);
-    if (!forgetPasswordValidator.passwordFormKey.currentState!.validate()) {
-      emit(ResetPasswordState(null));
-      return;
-    }
+    print(intent.email);
     var result = await forgetPasswordUsecase.resetPassword(
-        forgetPasswordValidator.emailController.text, intent.newPassword);
+        intent.email, intent.newPassword);
     switch (result) {
       case Success<User?>():
         {
@@ -81,7 +71,7 @@ class ForegetPasswordViewmodel extends Cubit<ForgetPasswordState> {
         }
       case Fail<User?>():
         {
-          emit(ResetPasswordState(result.exception));
+          emit(ResetPasswordState(intent.email, result.exception));
         }
     }
   }
@@ -101,8 +91,9 @@ class VerifyOtpIntent extends ForgetPasswordScreenIntent {
 }
 
 class ResetPasswordIntent extends ForgetPasswordScreenIntent {
+  String email;
   String newPassword;
-  ResetPasswordIntent(this.newPassword);
+  ResetPasswordIntent(this.email, this.newPassword);
 }
 
 sealed class ForgetPasswordState {}
@@ -121,8 +112,9 @@ class VerifyOtpState extends ForgetPasswordState {
 }
 
 class ResetPasswordState extends ForgetPasswordState {
+  String? email;
   Exception? error;
-  ResetPasswordState(this.error);
+  ResetPasswordState(this.email, this.error);
 }
 
 class SuccessState extends ForgetPasswordState {

@@ -1,7 +1,5 @@
 import 'package:elevate_online_exam/di/di.dart';
-import 'package:elevate_online_exam/presentaion/helper/router_helper.dart';
 import 'package:elevate_online_exam/presentaion/views/forget_password/foreget_password_viewmodel.dart';
-import 'package:elevate_online_exam/presentaion/views/forget_password/forget_password_validator/forget_password_validator_types_enum.dart';
 import 'package:elevate_online_exam/presentaion/views/forget_password/verify_email.dart';
 import 'package:elevate_online_exam/presentaion/views/forget_password/verify_otp.dart';
 import 'package:elevate_online_exam/presentaion/views/forget_password/verify_password.dart';
@@ -14,24 +12,10 @@ class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({super.key});
 
   ForegetPasswordViewmodel viewModel = getIt.get<ForegetPasswordViewmodel>();
-
+  final TextEditingController _emailController = TextEditingController();
+ 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController emailController =
-        viewModel.forgetPasswordValidator.emailController;
-    final emailValidator = viewModel.forgetPasswordValidator
-        .validate(ForgetPasswordValidTypes.email);
-    final emailFormKey = viewModel.forgetPasswordValidator.emailFormKey;
-    final passwordFormkey = viewModel.forgetPasswordValidator.passwordFormKey;
-    final passwordcontroller =
-        viewModel.forgetPasswordValidator.passwordController;
-    final confirmPasswordController =
-        viewModel.forgetPasswordValidator.confirmPasswordController;
-    final passwordValidator = viewModel.forgetPasswordValidator
-        .validate(ForgetPasswordValidTypes.password);
-    final confirmPasswordValidator = viewModel.forgetPasswordValidator
-        .validate(ForgetPasswordValidTypes.confirmPassword);
-
     return BlocProvider(
       create: (context) => viewModel,
       child: Scaffold(
@@ -51,7 +35,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             if (state is VerifyOtpState) {
               return Center(
                 child: VerifyOtp(
-                  emailController: emailController,
+                  emailController: _emailController,
                   sendOtp: sendOtp,
                   verifyOtp: verifyOtp,
                   exception: state.error,
@@ -60,11 +44,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             }
             if (state is ResetPasswordState) {
               return VerifyPassword(
-                passwordFormKey: passwordFormkey,
-                passwordController: passwordcontroller,
-                confirmPasswordController: confirmPasswordController,
-                passwordValidator: passwordValidator,
-                confirmPasswordValidator: confirmPasswordValidator,
+                emailController: _emailController,
                 resetPassword: resetPassword,
                 exception: state.error,
               );
@@ -72,21 +52,17 @@ class ForgetPasswordScreen extends StatelessWidget {
             if (state is InitialState) {
               return Center(
                   child: VerifyEmail(
-                formKey: emailFormKey,
-                emailValidator: emailValidator,
-                emailController: emailController,
+                emailController: _emailController,
                 sendOtp: sendOtp,
                 exception: state.error,
               ));
             }
             if (state is SuccessState) {
-              Navigator.pushNamed(context, AppRoutes.login);
+              Navigator.pushNamed(context, 'login');
             }
             return Center(
                 child: VerifyEmail(
-              formKey: emailFormKey,
-              emailValidator: emailValidator,
-              emailController: emailController,
+              emailController: _emailController,
               sendOtp: sendOtp,
             ));
           },
@@ -94,6 +70,8 @@ class ForgetPasswordScreen extends StatelessWidget {
       ),
     );
   }
+
+ 
 
   void sendOtp(String email) {
     viewModel.doIntent(VerifyEmailIntent(email));
@@ -103,7 +81,7 @@ class ForgetPasswordScreen extends StatelessWidget {
     viewModel.doIntent(VerifyOtpIntent(email, otp));
   }
 
-  void resetPassword(String newPassword) {
-    viewModel.doIntent(ResetPasswordIntent(newPassword));
+  void resetPassword(String email, String newPassword) {
+    viewModel.doIntent(ResetPasswordIntent(email, newPassword));
   }
 }

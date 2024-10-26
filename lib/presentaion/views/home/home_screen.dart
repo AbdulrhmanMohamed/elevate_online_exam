@@ -1,35 +1,19 @@
-import 'dart:developer';
-
-import 'package:elevate_online_exam/di/di.dart';
-import 'package:elevate_online_exam/presentaion/helper/app_sizes.dart';
-import 'package:elevate_online_exam/presentaion/views/home/home_viewModel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
-  final HomeViewmodel _homeViewmodel = getIt.get<HomeViewmodel>();
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => _homeViewmodel,
-      child: BlocBuilder<HomeViewmodel, HomeState>(
-        builder: (context, state) {
-          return Scaffold(
-            bottomNavigationBar: BottomNavigationBar(
-
-              iconSize: AppSizes.s20,
-              items: _homeViewmodel.navigationItems,
-              currentIndex: _homeViewmodel.currentIndex,
-              onTap: (index) {
-                _homeViewmodel.onPageChange(index);
-                log("======CurrentPage ===${_homeViewmodel.currentIndex}");
-              },
-            ),
-            body: _homeViewmodel.screens[_homeViewmodel.currentIndex],
-          );
-        },
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("HOme Screen"),
+        leading: IconButton(
+            onPressed: () => {Navigator.pushNamed(context, 'login')},
+            icon: const Icon(Icons.arrow_back)),
+      ),
+      body: const Center(
+        child: Text("HomeScreen"),
       ),
     );
   }

@@ -9,11 +9,11 @@ import 'package:injectable/injectable.dart';
 @injectable
 class HomeViewmodel extends Cubit<HomeState> {
   int currentIndex = 0;
-  List<BottomNavigationBarItem> navigationItems = [
-    const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-    const BottomNavigationBarItem(
+  List<NavigationDestination> navigationItems = [
+    const NavigationDestination(icon: Icon(Icons.home), label: 'Home',),
+    const NavigationDestination(
         icon: Icon(Icons.note_alt_rounded), label: 'Result'),
-    const BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+    const NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
   ];
   List<Widget> screens = [
     SubjectScreen(),

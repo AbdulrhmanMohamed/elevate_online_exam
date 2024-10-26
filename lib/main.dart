@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:elevate_online_exam/common/bloc_observer.dart';
 import 'package:elevate_online_exam/di/di.dart';
 import 'package:elevate_online_exam/presentaion/helper/app_theme.dart';
@@ -29,7 +27,8 @@ class OnlineExam extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: appTheme(),
-        home: const RegisterScreen(),
+        onGenerateRoute: manageRoute,
+        initialRoute: AppRoutes.home,
       ),
     );
   }

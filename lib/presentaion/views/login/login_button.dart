@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginButton extends StatelessWidget {
-final LoginViewModel viewModel;
-  const LoginButton({super.key ,required this.viewModel});
+  final LoginViewModel viewModel;
+  const LoginButton({super.key, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {

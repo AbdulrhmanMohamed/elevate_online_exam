@@ -13,24 +13,26 @@ class AuthOnlineDatasourceImpl implements AuthOnlineDatasource {
   ApiManager apiManager;
   AuthOnlineDatasourceImpl({required this.apiManager});
 
+  @override
   Future<Result<User?>> login(String email, String password) async {
     return executeApi(() async {
       var result = await apiManager.login(email, password);
       var user = result?.user;
 
       var userDto = UserDto(
-      isVerified: user?.isVerified,
-       token: result?.token,
-       username: user?.username,
-       firstName: user?.firstName,
-       lastName: user?.lastName,
-       email: user?.email,
-       phone:user?.phone,
-       );
+        isVerified: user?.isVerified,
+        token: result?.token,
+        username: user?.username,
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        email: user?.email,
+        phone: user?.phone,
+      );
       return userDto.toUser();
     });
   }
 
+  @override
   Future<Result<User?>> register(
     String username,
     String firstName,

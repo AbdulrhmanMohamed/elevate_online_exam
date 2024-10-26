@@ -1,5 +1,7 @@
 class StringsManager {
   static const login = "login";
+  static const subject = "subject";
+  static const browseBySubject = "Browse By Subject";
   static const issueValidEmail = "Please Enter Valid Email";
   static const issueEmptyPassword = "Password Should Not Be Empty";
   static const issueEmptyEamil = "Email Should Not Be Empty";

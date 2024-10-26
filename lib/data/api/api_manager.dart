@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:elevate_online_exam/data/api/api_consts.dart';
 import 'package:elevate_online_exam/data/api/models/request/register_body.dart';
 import 'package:elevate_online_exam/data/api/models/response/auth_response/auth_response/auth_response.dart';
-import 'package:elevate_online_exam/data/api/models/response/auth_response/auth_response/subject_response/subject_response.dart';
+import 'package:elevate_online_exam/data/api/models/response/subject_response/subject_response.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart'; // Add the Pretty Dio Logger
 

@@ -29,6 +29,7 @@ import '../domain/usecases/authentication/register_usecase.dart' as _i796;
 import '../domain/usecases/subject/get_subjects_usecase.dart' as _i424;
 import '../presentaion/views/forget_password/foreget_password_viewmodel.dart'
     as _i138;
+import '../presentaion/views/home/home_viewModel.dart' as _i52;
 import '../presentaion/views/login/login_validator/login_validator.dart'
     as _i788;
 import '../presentaion/views/login/login_viewmodel.dart' as _i668;
@@ -49,6 +50,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i298.CacheHelper>(() => _i298.CacheHelper());
     gh.factory<_i788.LoginValidator>(() => _i788.LoginValidator());
+    gh.factory<_i52.HomeViewmodel>(() => _i52.HomeViewmodel());
     gh.lazySingleton<_i93.ApiManager>(() => _i93.ApiManager());
     gh.factory<_i847.SubjectOnlineDatasource>(
         () => _i514.SubjectOnlineDatasourceImpl(gh<_i93.ApiManager>()));

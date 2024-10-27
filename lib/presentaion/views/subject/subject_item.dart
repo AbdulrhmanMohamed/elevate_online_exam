@@ -22,6 +22,7 @@ class SubjectItem extends StatelessWidget {
           height: 80.h,
           width: double.infinity,
           decoration: BoxDecoration(
+             border: Border.all(color: AppColor.lighterGray),
               color: AppColor.lightGray,
               borderRadius: BorderRadius.circular(AppSizes.s12.r),
               boxShadow: [

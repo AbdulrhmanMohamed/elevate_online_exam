@@ -73,10 +73,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i514.SubjectOnlineDatasourceImpl(gh<_i93.ApiManager>()));
     gh.factory<_i241.ExamQuestionsRepo>(
         () => _i914.ExamQuestionsRepoImpl(gh<_i855.ExamOnlineDatasource>()));
-    gh.factory<_i62.AuthOnlineDatasource>(() =>
-        _i567.AuthOnlineDatasourceImpl(apiManager: gh<_i93.ApiManager>()));
     gh.factory<_i144.SubjectRepo>(
         () => _i833.SubjectRepoImpl(gh<_i847.SubjectOnlineDatasource>()));
+    gh.factory<_i62.AuthOnlineDatasource>(() => _i567.AuthOnlineDatasourceImpl(
+          apiManager: gh<_i93.ApiManager>(),
+          cacheHelper: gh<_i298.CacheHelper>(),
+        ));
     gh.factory<_i846.GetExamQuestionsUsecase>(
         () => _i846.GetExamQuestionsUsecase(gh<_i241.ExamQuestionsRepo>()));
     gh.factory<_i424.GetSubjectsUsecase>(

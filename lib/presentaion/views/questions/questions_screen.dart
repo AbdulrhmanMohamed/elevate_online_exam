@@ -52,6 +52,7 @@ class QuestionsScreen extends StatelessWidget {
                   SingleChoiceQuestion(
                     pickSingleAnswer: pickSingleAnswer,
                     question: state.question,
+                    answer: viewModel.answersMap[state.question.id],
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),

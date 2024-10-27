@@ -5,8 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class SingleChoiceQuestion extends StatefulWidget {
   final Question question;
   final Function(String answerKey) pickSingleAnswer;
+  final String? answer;
   const SingleChoiceQuestion(
-      {super.key, required this.question, required this.pickSingleAnswer});
+      {super.key,
+      required this.question,
+      required this.pickSingleAnswer,
+      this.answer});
 
   @override
   State<SingleChoiceQuestion> createState() => _SingleChoiceQuestionState();
@@ -19,7 +23,7 @@ class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.question.id != widget.question.id) {
       setState(() {
-        _selectedchoice = null;
+        _selectedchoice = widget.answer;
       });
     }
   }

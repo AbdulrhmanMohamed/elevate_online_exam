@@ -1,4 +1,5 @@
 import 'package:elevate_online_exam/common/bloc_observer.dart';
+import 'package:elevate_online_exam/common/prefs_manager.dart';
 import 'package:elevate_online_exam/di/di.dart';
 import 'package:elevate_online_exam/presentaion/helper/app_theme.dart';
 import 'package:elevate_online_exam/presentaion/helper/router_helper.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  CacheHelper.init();
   await ScreenUtil.ensureScreenSize();
   runApp(const OnlineExam());
   configureDependencies();

@@ -7,6 +7,7 @@ import 'package:elevate_online_exam/presentaion/views/subject/view_model/subject
 import 'package:elevate_online_exam/presentaion/views/subject/view_model/subject_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+
 @injectable
 class SubjectViewmodel extends Cubit<SubjectState> {
   final GetSubjectsUsecase _getSubjectsUsecase;
@@ -15,7 +16,7 @@ class SubjectViewmodel extends Cubit<SubjectState> {
   void doIntent(SubjectIntent intent) {
     switch (intent) {
       case FetchSubjectsIntent():
-         log("_____Fetched");
+        log("_____Fetched");
         _getSubjects();
         break;
     }

@@ -18,7 +18,6 @@ class HomeScreen extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             bottomNavigationBar: BottomNavigationBar(
-
               iconSize: AppSizes.s20,
               items: _homeViewmodel.navigationItems,
               currentIndex: _homeViewmodel.currentIndex,

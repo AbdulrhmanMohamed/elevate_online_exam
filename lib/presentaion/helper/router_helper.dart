@@ -1,6 +1,7 @@
 import 'package:elevate_online_exam/presentaion/views/forget_password/forget_password_screen.dart';
 import 'package:elevate_online_exam/presentaion/views/home/home_screen.dart';
 import 'package:elevate_online_exam/presentaion/views/login/login_screen.dart';
+import 'package:elevate_online_exam/presentaion/views/questions/questions_screen.dart';
 import 'package:elevate_online_exam/presentaion/views/register/register_screen.dart';
 import 'package:elevate_online_exam/presentaion/views/subject/subject_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,13 @@ Route manageRoute(RouteSettings settings) {
     case "forgetPassword":
       return MaterialPageRoute(builder: (context) => ForgetPasswordScreen());
     case "subject":
-      return MaterialPageRoute(builder: (context) =>  SubjectScreen());
+      return MaterialPageRoute(builder: (context) => SubjectScreen());
     case "home":
-      return MaterialPageRoute(builder: (context) =>  HomeScreen());
+      return MaterialPageRoute(builder: (context) => HomeScreen());
+    case "questions":
+      return MaterialPageRoute(
+        builder: (context) => QuestionsScreen(),
+      );
     default:
       return MaterialPageRoute(builder: (context) => notFound());
   }
@@ -36,4 +41,5 @@ class AppRoutes {
   static const forgetPassword = 'forgetPassword';
   static const home = "home";
   static const subject = "subject";
+  static const questions = "questions";
 }

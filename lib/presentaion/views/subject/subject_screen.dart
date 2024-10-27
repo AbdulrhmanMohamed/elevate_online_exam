@@ -20,7 +20,7 @@ class SubjectScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-      _subjectViewmodel.doIntent(FetchSubjectsIntent());
+        _subjectViewmodel.doIntent(FetchSubjectsIntent());
         return _subjectViewmodel;
       },
       child: Scaffold(

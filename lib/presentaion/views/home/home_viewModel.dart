@@ -6,6 +6,7 @@ import 'package:elevate_online_exam/presentaion/views/subject/subject_screen.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+
 @injectable
 class HomeViewmodel extends Cubit<HomeState> {
   int currentIndex = 0;
@@ -21,7 +22,7 @@ class HomeViewmodel extends Cubit<HomeState> {
     const ProfileScreen()
   ];
 
-  HomeViewmodel():super(HomeInitial());
+  HomeViewmodel() : super(HomeInitial());
 
   void onPageChange(int index) {
     currentIndex = index;
@@ -34,6 +35,4 @@ sealed class HomeState {}
 
 class HomeInitial extends HomeState {}
 
-class HomeChangePage extends HomeState {
-  
-}
+class HomeChangePage extends HomeState {}

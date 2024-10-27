@@ -21,12 +21,9 @@ ThemeData appTheme() {
         )),
         border: OutlineInputBorder()),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    
-    backgroundColor: AppColor.lightBlue,
+      backgroundColor: AppColor.lightBlue,
       selectedItemColor: AppColor.darkBlue,
       unselectedItemColor: AppColor.gray,
-      
-      
     ),
   );
 }

@@ -26,21 +26,19 @@ class SubjectItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(AppSizes.s12.r),
               boxShadow: [
                 BoxShadow(
-                  color:AppColor.decorationShadow,
-                  blurRadius: AppSizes.s5.r,
-                  blurStyle: BlurStyle.normal,
-                  offset:const Offset(AppSizes.s0,AppSizes.s3)
-                )
+                    color: AppColor.decorationShadow,
+                    blurRadius: AppSizes.s5.r,
+                    blurStyle: BlurStyle.normal,
+                    offset: const Offset(AppSizes.s0, AppSizes.s3))
               ]),
           padding: const EdgeInsets.symmetric(
               vertical: AppSizes.s16, horizontal: AppSizes.s24),
           child: Row(
             children: [
               AspectRatio(
-              aspectRatio:1,
+                aspectRatio: 1,
                 child: Image(
                   image: NetworkImage(subject.icon!),
-                  
                 ),
               ),
               horizontal_space(30),

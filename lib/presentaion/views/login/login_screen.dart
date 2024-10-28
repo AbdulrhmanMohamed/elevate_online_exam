@@ -1,3 +1,5 @@
+import 'package:elevate_online_exam/common/prefs_manager.dart';
+import 'package:elevate_online_exam/data/consts.dart';
 import 'package:elevate_online_exam/di/di.dart';
 import 'package:elevate_online_exam/presentaion/helper/app_sizes.dart';
 import 'package:elevate_online_exam/presentaion/helper/color_consts.dart';
@@ -5,6 +7,7 @@ import 'package:elevate_online_exam/presentaion/helper/router_helper.dart';
 import 'package:elevate_online_exam/presentaion/helper/spacing.dart';
 import 'package:elevate_online_exam/presentaion/helper/strings_manager.dart';
 import 'package:elevate_online_exam/presentaion/helper/text_styles.dart';
+import 'package:elevate_online_exam/presentaion/views/home/home_screen.dart';
 import 'package:elevate_online_exam/presentaion/views/login/dont_have_account.dart';
 import 'package:elevate_online_exam/presentaion/views/login/email_and_password.dart';
 import 'package:elevate_online_exam/presentaion/views/login/forget_password.dart';
@@ -22,7 +25,10 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return 
+    CacheHelper.getData(key: Consts.token).toString().isNotEmpty?
+    HomeScreen():
+    BlocProvider(
       create: (context) => loginViewModel,
       child: BlocListener<LoginViewModel, LoginState>(
         listener: (context, state) {

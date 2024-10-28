@@ -34,4 +34,8 @@ class CacheHelper {
     log("Dynamic Result ,$result");
     return result;
   }
+
+  static dynamic clearData({required String key})async{
+    _preferences.remove(key);
+  }
 }

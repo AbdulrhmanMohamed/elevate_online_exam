@@ -9,11 +9,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  CacheHelper.init();
+ await CacheHelper.init();
   await ScreenUtil.ensureScreenSize();
-  runApp(const OnlineExam());
   configureDependencies();
   Bloc.observer = SimpleBlocObserver();
+  runApp(const OnlineExam());
 }
 
 class OnlineExam extends StatelessWidget {

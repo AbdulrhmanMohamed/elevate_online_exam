@@ -1,5 +1,8 @@
+import 'package:elevate_online_exam/presentaion/helper/app_sizes.dart';
+import 'package:elevate_online_exam/presentaion/helper/color_consts.dart';
+import 'package:elevate_online_exam/presentaion/helper/strings_manager.dart';
+import 'package:elevate_online_exam/presentaion/helper/text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -8,9 +11,22 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Profile "),
+        title: Text(
+        "profile",
+          style: Styles.get_bold(AppSizes.s20, AppColor.black),
+        ),
       ),
-      body:const Center(child: Text("Profile Screen"),),
+      body: Padding(
+        padding: EdgeInsets.all(
+          AppSizes.s10,
+          
+        ),
+        child: Column(children: [
+          Stack(children: [
+           CircleAvatar()
+          ],)
+        ],),
+      ),
     );
   }
 }

@@ -14,7 +14,9 @@ class QuestionsViewmodel extends Cubit<QuestionsState> {
   int questionCount = 0;
   ExamQuestions? examQuestions;
   Map<String, dynamic> answersMap = {};
-
+  double? progress;
+  int? numberOfQuestions;
+  int? duration;
   void doIntent(QuestionScreenIntent intent) {
     switch (intent) {
       case FetchQuestionsByIdIntent():
@@ -30,20 +32,28 @@ class QuestionsViewmodel extends Cubit<QuestionsState> {
 
   Future<void> _fetchQuestions(String examId) async {
     emit(LoadingState());
+
     var result = await _examQuestionsUsecase.getExamQuestions(examId);
 
     switch (result) {
       case Success<ExamQuestions>():
         examQuestions = result.data;
+        numberOfQuestions = examQuestions!.questions!.length;
+        duration = examQuestions!.duration;
         _showQuestion();
       case Fail<ExamQuestions>():
         emit(ErrorState(result.exception));
     }
   }
 
+  void _updateProgress() {
+    progress = (questionCount + 1) / numberOfQuestions!;
+  }
+
   void _showQuestion() {
     Question question = examQuestions!.questions![questionCount];
     if (question.type == 'single_choice') {
+      _updateProgress();
       emit(SingleChoiceQuestionState(question));
     }
   }
@@ -51,6 +61,7 @@ class QuestionsViewmodel extends Cubit<QuestionsState> {
   void _nextQuestion() {
     if (questionCount < (examQuestions!.questions!.length) - 1) {
       questionCount++;
+      _updateProgress();
       _showQuestion();
     }
   }
@@ -58,6 +69,7 @@ class QuestionsViewmodel extends Cubit<QuestionsState> {
   void _prevQuestion() {
     if (questionCount > 0) {
       questionCount--;
+      _updateProgress();
       _showQuestion();
     }
   }

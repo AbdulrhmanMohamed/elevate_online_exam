@@ -1,16 +1,23 @@
 import 'package:elevate_online_exam/di/di.dart';
 import 'package:elevate_online_exam/presentaion/helper/app_sizes.dart';
 import 'package:elevate_online_exam/presentaion/views/questions/next_back_buttons.dart';
+import 'package:elevate_online_exam/presentaion/views/questions/questions_progress_indicator.dart';
 import 'package:elevate_online_exam/presentaion/views/questions/questions_viewmodel.dart';
 import 'package:elevate_online_exam/presentaion/views/questions/single_choice_question.dart';
+import 'package:elevate_online_exam/presentaion/views/questions/timer/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
-class QuestionsScreen extends StatelessWidget {
+class QuestionsScreen extends StatefulWidget {
   const QuestionsScreen({super.key});
 
+  @override
+  State<QuestionsScreen> createState() => _QuestionsScreenState();
+}
+
+class _QuestionsScreenState extends State<QuestionsScreen> {
   @override
   Widget build(BuildContext context) {
     QuestionsViewmodel viewModel = getIt.get<QuestionsViewmodel>();
@@ -37,6 +44,11 @@ class QuestionsScreen extends StatelessWidget {
           title: Text('Exam',
               style: TextStyle(
                   fontSize: AppSizes.s20.sp, fontWeight: FontWeight.w500)),
+          actions: const [
+            Timer(
+              duration: 10,
+            ),
+          ],
         ),
         body: BlocBuilder<QuestionsViewmodel, QuestionsState>(
           builder: (context, state) {
@@ -49,6 +61,11 @@ class QuestionsScreen extends StatelessWidget {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  QuestionPrgressIndiactor(
+                    progress: viewModel.progress!,
+                    currentQuestionCount: viewModel.questionCount + 1,
+                    numberOfQuestions: viewModel.numberOfQuestions!,
+                  ),
                   SingleChoiceQuestion(
                     pickSingleAnswer: pickSingleAnswer,
                     question: state.question,

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:elevate_online_exam/domain/models/subject.dart';
 import 'package:elevate_online_exam/presentaion/helper/app_sizes.dart';
 import 'package:elevate_online_exam/presentaion/helper/color_consts.dart';
+import 'package:elevate_online_exam/presentaion/helper/router_helper.dart';
 import 'package:elevate_online_exam/presentaion/helper/spacing.dart';
 import 'package:elevate_online_exam/presentaion/helper/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -16,13 +17,15 @@ class SubjectItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        log("clicked ${subject.name}");
+        log("What is the subjectId : ${subject.id}");
+        Navigator.pushNamed(context, AppRoutes.exams,
+            arguments: {"subjectId": subject.id, "subjectName": subject.name});
       },
       child: Container(
           height: 80.h,
           width: double.infinity,
           decoration: BoxDecoration(
-             border: Border.all(color: AppColor.lighterGray),
+              border: Border.all(color: AppColor.lighterGray),
               color: AppColor.lightGray,
               borderRadius: BorderRadius.circular(AppSizes.s12.r),
               boxShadow: [

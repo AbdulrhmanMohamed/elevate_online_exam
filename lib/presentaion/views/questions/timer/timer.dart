@@ -6,12 +6,19 @@ import 'package:flutter/material.dart';
 
 class Timer extends StatelessWidget {
   final int duration;
-  const Timer({super.key, required this.duration});
+  final Function() examEnded;
+  const Timer({super.key, required this.duration, required this.examEnded});
 
   String formatTime(int seconds) {
     final minutes = (seconds ~/ 60).toString().padLeft(2, '0');
     final secs = (seconds % 60).toString().padLeft(2, '0');
     return "$minutes.$secs";
+  }
+
+  bool isTimeLessThan15(int seconds) {
+    final minutes = (seconds ~/ 60).toString().padLeft(2, '0');
+    var bool = int.parse(minutes) < 15 ? true : false;
+    return bool;
   }
 
   @override
@@ -35,19 +42,16 @@ class Timer extends StatelessWidget {
             ),
             BlocBuilder<TimerViewmodel, int>(
               builder: (context, remainingTime) {
-                print(remainingTime);
                 if (remainingTime == 0) {
-                  return const Text(
-                    "Time's up!",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red),
-                  );
+                  examEnded();
                 }
                 return Text(
                   formatTime(remainingTime),
-                  style: const TextStyle(fontSize: 20, color: Colors.green),
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: isTimeLessThan15(remainingTime)
+                          ? Colors.red
+                          : Colors.green),
                 );
               },
             ),

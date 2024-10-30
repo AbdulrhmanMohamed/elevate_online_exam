@@ -1,8 +1,6 @@
 import 'dart:developer';
 
 import 'package:elevate_online_exam/di/di.dart';
-import 'package:elevate_online_exam/presentaion/helper/app_sizes.dart';
-import 'package:elevate_online_exam/presentaion/helper/color_consts.dart';
 import 'package:elevate_online_exam/presentaion/views/home/home_viewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

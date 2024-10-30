@@ -1,5 +1,6 @@
 import 'package:elevate_online_exam/di/di.dart';
 import 'package:elevate_online_exam/presentaion/helper/app_sizes.dart';
+import 'package:elevate_online_exam/presentaion/views/questions/exam_questions_screen_data.dart';
 import 'package:elevate_online_exam/presentaion/views/questions/next_back_buttons.dart';
 import 'package:elevate_online_exam/presentaion/views/questions/questions_progress_indicator.dart';
 import 'package:elevate_online_exam/presentaion/views/questions/questions_viewmodel.dart';
@@ -11,7 +12,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
 class QuestionsScreen extends StatefulWidget {
-  const QuestionsScreen({super.key});
+  final ExamQuestionsScreenData examQuestionsScreenData;
+  const QuestionsScreen({super.key, required this.examQuestionsScreenData});
 
   @override
   State<QuestionsScreen> createState() => _QuestionsScreenState();
@@ -33,10 +35,12 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
       viewModel.doIntent(PickSingleAnswerIntent(answerKey));
     }
 
+    void endExam() {}
+
     return BlocProvider(
       create: (context) {
-        viewModel
-            .doIntent(FetchQuestionsByIdIntent("670070a830a3c3c1944a9c63"));
+        viewModel.doIntent(
+            FetchQuestionsByIdIntent(widget.examQuestionsScreenData.examId));
         return viewModel;
       },
       child: Scaffold(
@@ -44,9 +48,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
           title: Text('Exam',
               style: TextStyle(
                   fontSize: AppSizes.s20.sp, fontWeight: FontWeight.w500)),
-          actions: const [
+          actions: [
             Timer(
-              duration: 10,
+              duration: widget.examQuestionsScreenData.examDuration,
+              examEnded: () {},
             ),
           ],
         ),
@@ -76,6 +81,9 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                     child: NextBackButtons(
                       nextQuestion: nextQuestion,
                       prevQuestion: prevQuestion,
+                      isLastQuestion: (viewModel.numberOfQuestions)! - 1 ==
+                          viewModel.questionCount,
+                      endExam: endExam,
                     ),
                   ),
                 ],

@@ -1,5 +1,6 @@
 import 'package:elevate_online_exam/common/bloc_observer.dart';
 import 'package:elevate_online_exam/common/prefs_manager.dart';
+import 'package:elevate_online_exam/data/consts.dart';
 import 'package:elevate_online_exam/di/di.dart';
 import 'package:elevate_online_exam/presentaion/helper/app_theme.dart';
 import 'package:elevate_online_exam/presentaion/helper/router_helper.dart';
@@ -9,11 +10,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  CacheHelper.init();
+  await CacheHelper.init();
   await ScreenUtil.ensureScreenSize();
-  runApp(const OnlineExam());
   configureDependencies();
   Bloc.observer = SimpleBlocObserver();
+  runApp(const OnlineExam());
 }
 
 class OnlineExam extends StatelessWidget {
@@ -29,7 +30,7 @@ class OnlineExam extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: appTheme(),
         onGenerateRoute: manageRoute,
-        initialRoute: AppRoutes.questions,
+        initialRoute: AppRoutes.examScore,
       ),
     );
   }

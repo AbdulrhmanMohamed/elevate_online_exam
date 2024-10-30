@@ -4,8 +4,14 @@ import 'package:flutter/material.dart';
 class NextBackButtons extends StatelessWidget {
   final Function() nextQuestion;
   final Function() prevQuestion;
+  final Function() endExam;
+  final bool isLastQuestion;
   const NextBackButtons(
-      {super.key, required this.nextQuestion, required this.prevQuestion});
+      {super.key,
+      required this.nextQuestion,
+      required this.prevQuestion,
+      required this.endExam,
+      required this.isLastQuestion});
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +44,14 @@ class NextBackButtons extends StatelessWidget {
           child: SizedBox(
             height: 48,
             child: ElevatedButton(
-              onPressed: nextQuestion,
+              onPressed: isLastQuestion ? endExam : nextQuestion,
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue[900],
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10))),
-              child: const Text(
-                'Next',
-                style: TextStyle(
+              child: Text(
+                isLastQuestion ? 'Finish' : 'Next',
+                style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
                     fontSize: 16),

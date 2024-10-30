@@ -7,4 +7,5 @@ class ApiConsts {
   static String resetPasswordPath = "/v1/auth/resetPassword";
   static String getSubjects = "/v1/subjects";
   static String getExamQuestions = "/v1/questions?exam=";
+  static String getExams = "/v1/exams";
 }

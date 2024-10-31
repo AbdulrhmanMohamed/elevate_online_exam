@@ -8,7 +8,11 @@ class ExamDto {
   final int? numberOfQuestions;
 
   ExamDto(
-      {this.id, this.title, this.duration, this.subject, this.numberOfQuestions});
+      {this.id,
+      this.title,
+      this.duration,
+      this.subject,
+      this.numberOfQuestions});
 
   factory ExamDto.fromJson(Map<String, dynamic> json) => ExamDto(
         id: json['_id'],

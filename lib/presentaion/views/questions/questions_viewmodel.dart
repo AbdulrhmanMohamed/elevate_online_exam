@@ -13,7 +13,7 @@ class QuestionsViewmodel extends Cubit<QuestionsState> {
 
   int questionCount = 0;
   ExamQuestions? examQuestions;
-  Map<String, dynamic> answersMap = {};
+  Map<String, String> answersMap = {};
   double? progress;
   int? numberOfQuestions;
   int? duration;

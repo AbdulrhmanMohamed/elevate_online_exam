@@ -1,5 +1,6 @@
 import 'package:elevate_online_exam/di/di.dart';
 import 'package:elevate_online_exam/presentaion/helper/app_sizes.dart';
+import 'package:elevate_online_exam/presentaion/helper/router_helper.dart';
 import 'package:elevate_online_exam/presentaion/views/questions/exam_questions_screen_data.dart';
 import 'package:elevate_online_exam/presentaion/views/questions/next_back_buttons.dart';
 import 'package:elevate_online_exam/presentaion/views/questions/questions_progress_indicator.dart';
@@ -35,7 +36,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
       viewModel.doIntent(PickSingleAnswerIntent(answerKey));
     }
 
-    void endExam() {}
+    void endExam() {
+      Navigator.pushNamed(context, AppRoutes.examScore,
+          arguments: {"answers": viewModel.answersMap});
+    }
 
     return BlocProvider(
       create: (context) {

@@ -37,8 +37,11 @@ import '../domain/usecases/authentication/login_usecase.dart' as _i827;
 import '../domain/usecases/authentication/register_usecase.dart' as _i796;
 import '../domain/usecases/examQuestions/get_exam_questions_usecase.dart'
     as _i846;
+import '../domain/usecases/examQuestions/get_exam_score_usecase.dart' as _i150;
 import '../domain/usecases/exams/get_exams_bySubject_usecase.dart' as _i267;
 import '../domain/usecases/subject/get_subjects_usecase.dart' as _i424;
+import '../presentaion/views/exam_score.dart/exam_score_viewmodel.dart'
+    as _i822;
 import '../presentaion/views/exams/exams_viewmodel/exams_viewmodel.dart'
     as _i390;
 import '../presentaion/views/forget_password/foreget_password_viewmodel.dart'
@@ -68,10 +71,10 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     gh.factory<_i298.CacheHelper>(() => _i298.CacheHelper());
-    gh.factory<_i788.LoginValidator>(() => _i788.LoginValidator());
     gh.factory<_i322.ForgetPasswordValidator>(
         () => _i322.ForgetPasswordValidator());
     gh.factory<_i52.HomeViewmodel>(() => _i52.HomeViewmodel());
+    gh.factory<_i788.LoginValidator>(() => _i788.LoginValidator());
     gh.factory<_i928.RegisterValidator>(() => _i928.RegisterValidator());
     gh.lazySingleton<_i93.ApiManager>(() => _i93.ApiManager());
     gh.factory<_i522.ExamsOnlineDatasource>(
@@ -92,6 +95,8 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i846.GetExamQuestionsUsecase>(
         () => _i846.GetExamQuestionsUsecase(gh<_i241.ExamQuestionsRepo>()));
+    gh.factory<_i150.GetExamScoreUsecase>(
+        () => _i150.GetExamScoreUsecase(gh<_i241.ExamQuestionsRepo>()));
     gh.factory<_i267.GetExamsBySubjectUsecase>(
         () => _i267.GetExamsBySubjectUsecase(gh<_i536.ExamRepo>()));
     gh.factory<_i424.GetSubjectsUsecase>(
@@ -102,6 +107,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i827.LoginUsecase(gh<_i1053.AuthenticationRepo>()));
     gh.factory<_i796.RegisterUsecase>(
         () => _i796.RegisterUsecase(gh<_i1053.AuthenticationRepo>()));
+    gh.factory<_i822.ExamScoreViewmodel>(
+        () => _i822.ExamScoreViewmodel(gh<_i150.GetExamScoreUsecase>()));
     gh.factory<_i433.QuestionsViewmodel>(
         () => _i433.QuestionsViewmodel(gh<_i846.GetExamQuestionsUsecase>()));
     gh.factory<_i390.ExamsViewmodel>(

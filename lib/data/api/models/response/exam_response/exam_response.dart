@@ -1,12 +1,14 @@
 class ExamResponse {
- final String? message;
- final List<ExamData> ?exams;
- ExamResponse({this.exams,this.message});
+  final String? message;
+  final List<ExamData>? exams;
+  ExamResponse({this.exams, this.message});
 
- factory ExamResponse.fromJson(Map<String,dynamic>json)=>ExamResponse(
-    message: json['message'],
-    exams: (json['exams'] as List<dynamic>).map((exam)=> ExamData.fromJson(exam)).toList(),
- );
+  factory ExamResponse.fromJson(Map<String, dynamic> json) => ExamResponse(
+        message: json['message'],
+        exams: (json['exams'] as List<dynamic>)
+            .map((exam) => ExamData.fromJson(exam))
+            .toList(),
+      );
 }
 
 class ExamData {
@@ -17,15 +19,17 @@ class ExamData {
   final int? numberOfQuestions;
 
   ExamData(
-      {this.id, this.title, this.duration, this.subject, this.numberOfQuestions});
+      {this.id,
+      this.title,
+      this.duration,
+      this.subject,
+      this.numberOfQuestions});
 
   factory ExamData.fromJson(Map<String, dynamic> json) => ExamData(
         id: json['_id'] as String?,
         title: json['title'] as String?,
         duration: json['duration'] as num?,
-        subject: json['subject']as String?,
+        subject: json['subject'] as String?,
         numberOfQuestions: json['numberOfQuestions'] as int?,
       );
-  
-  
 }

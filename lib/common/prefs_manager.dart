@@ -35,7 +35,7 @@ class CacheHelper {
     return result;
   }
 
-  static dynamic clearData({required String key})async{
+  static dynamic clearData({required String key}) async {
     _preferences.remove(key);
   }
 }

@@ -11,7 +11,10 @@ import 'package:injectable/injectable.dart';
 class HomeViewmodel extends Cubit<HomeState> {
   int currentIndex = 0;
   List<NavigationDestination> navigationItems = [
-    const NavigationDestination(icon: Icon(Icons.home), label: 'Home',),
+    const NavigationDestination(
+      icon: Icon(Icons.home),
+      label: 'Home',
+    ),
     const NavigationDestination(
         icon: Icon(Icons.note_alt_rounded), label: 'Result'),
     const NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),

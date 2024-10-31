@@ -40,7 +40,9 @@ Route manageRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => HomeScreen());
     case AppRoutes.examScore:
       return MaterialPageRoute(
-        builder: (context) => const ExamScoreScreen(),
+        builder: (context) => ExamScoreScreen(
+          answers: (settings.arguments as Map)['answers'],
+        ),
       );
     default:
       return MaterialPageRoute(builder: (context) => notFound());

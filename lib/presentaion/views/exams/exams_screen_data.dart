@@ -1,9 +1,7 @@
 class ExamsScreenData {
- final String ?subjectId;
+  final String? subjectId;
 
- final String ?subjectName;
+  final String? subjectName;
 
-  ExamsScreenData({ this.subjectId,  this.subjectName});
-
-
+  ExamsScreenData({this.subjectId, this.subjectName});
 }

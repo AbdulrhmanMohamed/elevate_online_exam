@@ -5,6 +5,7 @@ import 'package:elevate_online_exam/presentaion/views/exams/exams_viewmodel/exam
 import 'package:elevate_online_exam/presentaion/views/exams/exams_viewmodel/exams_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+
 @injectable
 class ExamsViewmodel extends Cubit<ExamsState> {
   GetExamsBySubjectUsecase _getExamsBySubjectUsecase;
@@ -19,18 +20,18 @@ class ExamsViewmodel extends Cubit<ExamsState> {
     }
   }
 
-  void _getExamBySubject(String subjectId) async{
+  void _getExamBySubject(String subjectId) async {
     emit(ExamsLoadingState());
 
-    var result= await _getExamsBySubjectUsecase.getExamsBySubject(subjectId);
+    var result = await _getExamsBySubjectUsecase.getExamsBySubject(subjectId);
 
-    switch(result){
+    switch (result) {
       case Success<List<Exam?>>():
         emit(ExamsSuccessState(result.data));
-        // TODO: Handle this case.
+      // TODO: Handle this case.
       case Fail<List<Exam?>>():
-      emit(ExamsErrorState(result.exception));
-        // TODO: Handle this case.
+        emit(ExamsErrorState(result.exception));
+      // TODO: Handle this case.
     }
   }
 }

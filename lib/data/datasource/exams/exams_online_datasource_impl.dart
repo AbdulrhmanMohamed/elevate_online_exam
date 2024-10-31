@@ -18,13 +18,13 @@ class ExamsOnlineDatasourceImpl implements ExamsOnlineDatasource {
       var response = await _apiManager.getExamsBySubject(subjectId);
       response?.exams?.forEach((exam) {
         var dto = ExamDto(
-            id: exam.id,
-            duration: exam.duration,
-            numberOfQuestions: exam.numberOfQuestions,
-            subject: exam.subject,
-            title: exam.title,);
-        exams.add(dto.toExam()
+          id: exam.id,
+          duration: exam.duration,
+          numberOfQuestions: exam.numberOfQuestions,
+          subject: exam.subject,
+          title: exam.title,
         );
+        exams.add(dto.toExam());
       });
       return exams;
     });

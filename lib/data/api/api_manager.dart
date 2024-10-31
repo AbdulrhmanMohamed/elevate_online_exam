@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:elevate_online_exam/common/prefs_manager.dart';
 import 'package:elevate_online_exam/data/api/api_consts.dart';
+import 'package:elevate_online_exam/data/api/models/request/check_questions_body/check_questions_body.dart';
 import 'package:elevate_online_exam/data/api/models/request/register_body.dart';
 import 'package:elevate_online_exam/data/api/models/response/auth_response/auth_response/auth_response.dart';
+import 'package:elevate_online_exam/data/api/models/response/check_answers_resposnse/check_answers_resposnse.dart';
 import 'package:elevate_online_exam/data/api/models/response/exam_questions_response/exam_questions_response.dart';
 import 'package:elevate_online_exam/data/api/models/response/exam_response/exam_response.dart';
 import 'package:elevate_online_exam/data/api/models/response/subject_response/subject_response.dart';
@@ -40,7 +42,7 @@ class ApiManager {
   Future<AuthResponse?> register(RegisterBody registerBody) async {
     var response = await _dio.post(
       ApiConsts.signupPath,
-      data: registerBody,
+      data: registerBody.toJson(),
       options: Options(
         headers: {
           'Content-Type': 'application/json',
@@ -88,5 +90,14 @@ class ApiManager {
         options: Options(
             headers: {"token": CacheHelper.getData(key: Consts.token)}));
     return ExamResponse.fromJson(response.data);
+  }
+
+  Future<CheckAnswersResposnse?> checkAnswers(
+      CheckQuestionsBody checkQuestionsBody) async {
+    var response = await _dio.post(ApiConsts.checkAnswers,
+        data: checkQuestionsBody.toJson(),
+        options: Options(
+            headers: {"token": CacheHelper.getData(key: Consts.token)}));
+    return CheckAnswersResposnse.fromJson(response.data);
   }
 }

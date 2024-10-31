@@ -17,7 +17,8 @@ import 'package:elevate_online_exam/data/api/api_manager.dart';
 class AuthOnlineDatasourceImpl implements AuthOnlineDatasource {
   ApiManager apiManager;
   final CacheHelper cacheHelper;
-  AuthOnlineDatasourceImpl({required this.apiManager,required this.cacheHelper});
+  AuthOnlineDatasourceImpl(
+      {required this.apiManager, required this.cacheHelper});
 
   @override
   Future<Result<User?>> login(String email, String password) async {
@@ -33,9 +34,10 @@ class AuthOnlineDatasourceImpl implements AuthOnlineDatasource {
         email: user?.email,
         phone: user?.phone,
       );
-      if(result?.token !=null){
-      var cached= await cacheHelper.saveData(key: Consts.token, value:result?.token.toString());
-      log("_____ is Cached $cached");
+      if (result?.token != null) {
+        var cached = await cacheHelper.saveData(
+            key: Consts.token, value: result?.token.toString());
+        log("_____ is Cached $cached");
       }
       return userDto.toUser();
     });

@@ -8,4 +8,5 @@ class ApiConsts {
   static String getSubjects = "/v1/subjects";
   static String getExamQuestions = "/v1/questions?exam=";
   static String getExams = "/v1/exams";
+  static String checkAnswers = "/v1/questions/check";
 }

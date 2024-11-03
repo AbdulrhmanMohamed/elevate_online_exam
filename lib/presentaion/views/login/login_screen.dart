@@ -26,8 +26,8 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return 
-    CacheHelper.getData(key: Consts.token).toString().isNotEmpty?
-    HomeScreen():
+    // CacheHelper.getData(key: Consts.token).toString().isNotEmpty?
+    // HomeScreen():
     BlocProvider(
       create: (context) => loginViewModel,
       child: BlocListener<LoginViewModel, LoginState>(

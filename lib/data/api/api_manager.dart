@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:elevate_online_exam/common/prefs_manager.dart';
 import 'package:elevate_online_exam/data/api/api_consts.dart';
-import 'package:elevate_online_exam/data/api/models/request/register_body.dart';
+import 'package:elevate_online_exam/data/api/models/request/auth_body.dart';
 import 'package:elevate_online_exam/data/api/models/response/auth_response/auth_response/auth_response.dart';
 import 'package:elevate_online_exam/data/api/models/response/exam_response/exam_response.dart';
 import 'package:elevate_online_exam/data/api/models/response/subject_response/subject_response.dart';
@@ -106,5 +106,7 @@ class ApiManager {
         options: Options(
             headers: {"token": CacheHelper.getData(key: Consts.token)}));
     return AuthResponse.fromJson(response.data);
+
+
   }
 }

@@ -3,6 +3,7 @@ import 'package:elevate_online_exam/common/prefs_manager.dart';
 import 'package:elevate_online_exam/data/api/api_consts.dart';
 import 'package:elevate_online_exam/data/api/models/request/register_body.dart';
 import 'package:elevate_online_exam/data/api/models/response/auth_response/auth_response/auth_response.dart';
+import 'package:elevate_online_exam/data/api/models/response/exam_response/exam_response.dart';
 import 'package:elevate_online_exam/data/api/models/response/subject_response/subject_response.dart';
 import 'package:elevate_online_exam/data/consts.dart';
 import 'package:injectable/injectable.dart';
@@ -35,10 +36,10 @@ class ApiManager {
     return AuthResponse.fromJson(response.data);
   }
 
-  Future<AuthResponse?> register(RegisterBody registerBody) async {
+  Future<AuthResponse?> register(AuthBody AuthBody) async {
     var response = await _dio.post(
       ApiConsts.signupPath,
-      data: registerBody,
+      data: AuthBody,
       options: Options(
         headers: {
           'Content-Type': 'application/json',
@@ -71,5 +72,39 @@ class ApiManager {
         options: Options(
             headers: {"token": CacheHelper.getData(key: Consts.token)}));
     return SubjectResponse.fromJson(response.data);
+  }
+
+  Future<ExamResponse?> getExamsBySubject(String subjectId) async {
+    var response = await _dio.get(ApiConsts.getExams,
+        queryParameters: {"subject": subjectId},
+        options: Options(
+            headers: {"token": CacheHelper.getData(key: Consts.token)}));
+    return ExamResponse.fromJson(response.data);
+  }
+
+  Future<AuthResponse?> getProfile() async {
+    var response = await _dio.get(ApiConsts.getProfile,
+        options: Options(
+            headers: {"token": CacheHelper.getData(key: Consts.token)}));
+    return AuthResponse.fromJson(response.data);
+  }
+
+  Future<AuthResponse?> editProfile(AuthBody body) async {
+  var data={
+          "firstName": body.firstName,
+          "lastName":body.lastName,
+          "username":body.username,
+          "email":body.email,
+          "phone":body.phone,
+        };
+      if(body.password!.isNotEmpty){
+      data['password']=body.password;
+      }
+    
+    var response = await _dio.put(ApiConsts.editProfile,
+        data:data,
+        options: Options(
+            headers: {"token": CacheHelper.getData(key: Consts.token)}));
+    return AuthResponse.fromJson(response.data);
   }
 }

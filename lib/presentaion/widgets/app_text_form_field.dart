@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
+
 import 'package:elevate_online_exam/presentaion/helper/app_sizes.dart';
 import 'package:elevate_online_exam/presentaion/helper/color_consts.dart';
 import 'package:elevate_online_exam/presentaion/helper/text_styles.dart';
@@ -49,6 +51,10 @@ class AppTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+    onChanged: (value){
+     log("Value Get Changed: $value");
+     controller?.text= value;
+    },
         keyboardType: keyboardType ?? TextInputType.text,
         obscureText: isObsecure ?? false,
         validator: validator,
@@ -57,7 +63,7 @@ class AppTextFormField extends StatelessWidget {
           errorStyle: Styles.get_bold(AppSizes.s14.sp, AppColor.red),
           label: label,
           labelStyle: Styles.get_bold(
-              AppSizes.s14.sp, isError! ? AppColor.red : AppColor.black),
+              AppSizes.s16.sp, AppColor.black),
           prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
           filled: filled ?? true,
@@ -95,8 +101,8 @@ class AppTextFormField extends StatelessWidget {
               ),
               borderRadius: BorderRadius.all(Radius.circular(AppSizes.s0))),
           hintText: hintText,
-          // hintStyle:
-          //     hintStyle ?? Styles.get_regular(AppSizes.s18)),
-        ));
+          hintStyle:
+              hintStyle ?? Styles.get_regular(AppSizes.s18,AppColor.gray)),
+        );
   }
 }

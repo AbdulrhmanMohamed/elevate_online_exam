@@ -17,7 +17,8 @@ import 'package:elevate_online_exam/data/api/api_manager.dart';
 class AuthOnlineDatasourceImpl implements AuthOnlineDatasource {
   ApiManager apiManager;
   final CacheHelper cacheHelper;
-  AuthOnlineDatasourceImpl({required this.apiManager,required this.cacheHelper});
+  AuthOnlineDatasourceImpl(
+      {required this.apiManager, required this.cacheHelper});
 
   @override
   Future<Result<User?>> login(String email, String password) async {
@@ -33,9 +34,10 @@ class AuthOnlineDatasourceImpl implements AuthOnlineDatasource {
         email: user?.email,
         phone: user?.phone,
       );
-      if(result?.token !=null){
-      var cached= await cacheHelper.saveData(key: Consts.token, value:result?.token.toString());
-      log("_____ is Cached $cached");
+      if (result?.token != null) {
+        var cached = await cacheHelper.saveData(
+            key: Consts.token, value: result?.token.toString());
+        log("_____ is Cached $cached");
       }
       return userDto.toUser();
     });
@@ -51,7 +53,7 @@ class AuthOnlineDatasourceImpl implements AuthOnlineDatasource {
     String rePassword,
     String phone,
   ) async {
-    var registerBody = RegisterBody(
+    var authBody = AuthBody(
       email: email,
       username: username,
       firstName: firstName,
@@ -63,7 +65,7 @@ class AuthOnlineDatasourceImpl implements AuthOnlineDatasource {
 
     return executeApi(
       () async {
-        var result = await apiManager.register(registerBody);
+        var result = await apiManager.register(authBody);
         var user = result?.user;
         var userDto = UserDto(
             username: user?.username,
@@ -101,6 +103,37 @@ class AuthOnlineDatasourceImpl implements AuthOnlineDatasource {
       var user = result?.user;
       var userDto = UserDto(isVerified: user?.isVerified, token: result?.token);
       return userDto.toUser();
+    });
+  }
+
+  @override
+  Future<Result<User?>> getProfile() {
+     
+    return executeApi(() async {
+      var response = await apiManager.getProfile();
+      var dto = UserDto(
+        email: response?.user?.email,
+        firstName: response?.user?.firstName,
+        lastName: response?.user?.lastName,
+        username: response?.user?.username,
+        phone: response?.user?.phone
+      );
+      return dto.toUser();
+    });
+  }
+  @override
+  Future<Result<User?>> editProfile(AuthBody body) {
+     
+    return executeApi(() async {
+      var response = await apiManager.editProfile(body);
+      var dto = UserDto(
+        email: response?.user?.email,
+        firstName: response?.user?.firstName,
+        lastName: response?.user?.lastName,
+        username: response?.user?.username,
+        phone: response?.user?.phone
+      );
+      return dto.toUser();
     });
   }
 }

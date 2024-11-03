@@ -1,4 +1,4 @@
-class RegisterBody {
+class AuthBody {
   String? username;
   String? firstName;
   String? lastName;
@@ -7,7 +7,7 @@ class RegisterBody {
   String? rePassword;
   String? phone;
 
-  RegisterBody({
+  AuthBody({
     this.username,
     this.firstName,
     this.lastName,
@@ -17,7 +17,7 @@ class RegisterBody {
     this.phone,
   });
 
-  factory RegisterBody.fromJson(Map<String, dynamic> json) => RegisterBody(
+  factory AuthBody.fromJson(Map<String, dynamic> json) => AuthBody(
         username: json['username'] as String?,
         firstName: json['firstName'] as String?,
         lastName: json['lastName'] as String?,

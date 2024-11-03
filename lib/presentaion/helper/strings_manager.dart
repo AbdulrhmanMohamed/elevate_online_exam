@@ -2,6 +2,7 @@ class StringsManager {
   static const login = "login";
   static const subject = "subject";
   static const profile = "profile";
+  static const exams = "exams";
   static const browseBySubject = "Browse By Subject";
   static const issueValidEmail = "Please Enter Valid Email";
   static const issueEmptyPassword = "Password Should Not Be Empty";
@@ -12,6 +13,10 @@ class StringsManager {
   static const hintPassword = "Enter Your Password";
   static const email = "Email";
   static const password = "Password";
+  static const firstName = "firstName";
+  static const lastName = "lastName";
+  static const userName = "userName";
+  static const phone = "phone";
   static const forgetPassword = "forgetPassword";
   static const issuePasswordNotMatch = "Password not match";
   static const issueEmptyUsername = "Please enter username";

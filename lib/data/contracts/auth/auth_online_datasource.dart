@@ -1,4 +1,5 @@
 import 'package:elevate_online_exam/common/api_result.dart';
+import 'package:elevate_online_exam/data/api/models/request/register_body.dart';
 import 'package:elevate_online_exam/domain/models/user.dart';
 
 abstract class AuthOnlineDatasource {
@@ -17,4 +18,7 @@ abstract class AuthOnlineDatasource {
   Future<Result<String>> forgotPassword(String email);
   Future<Result<bool>> verifyResetPassword(String resetCode);
   Future<Result<User?>> resetPasswprd(String email, String newPassword);
+  Future<Result<User?>> getProfile();
+  Future<Result<User?>> editProfile(AuthBody body);
+
 }

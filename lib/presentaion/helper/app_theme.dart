@@ -1,5 +1,6 @@
 import 'package:elevate_online_exam/presentaion/helper/app_sizes.dart';
 import 'package:elevate_online_exam/presentaion/helper/color_consts.dart';
+import 'package:elevate_online_exam/presentaion/helper/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -12,15 +13,18 @@ ThemeData appTheme() {
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent),
     scaffoldBackgroundColor: AppColor.moreLighterGray,
-    inputDecorationTheme: const InputDecorationTheme(
+    inputDecorationTheme:const  InputDecorationTheme(
         hintStyle: TextStyle(fontWeight: FontWeight.w300),
-        labelStyle: TextStyle(color: AppColor.black),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
           color: AppColor.black,
         )),
-        border: OutlineInputBorder()),
+        border: OutlineInputBorder(
+            borderSide: BorderSide(
+          color: AppColor.black,
+        )),
+        ),
 
         navigationBarTheme: NavigationBarThemeData(
           // Customizing the colors for selected and unselected items

@@ -17,13 +17,19 @@ Route manageRoute(RouteSettings settings) {
     case AppRoutes.forgetPassword:
       return MaterialPageRoute(builder: (context) => ForgetPasswordScreen());
     case AppRoutes.subject:
-      return MaterialPageRoute(builder: (context) =>  SubjectScreen());
+      return MaterialPageRoute(builder: (context) => SubjectScreen());
     case AppRoutes.exams:
-      return MaterialPageRoute(builder: (context) =>  ExamsScreen(args: ExamsScreenData(subjectId:(settings.arguments as Map)['subjectId']!.toString(), subjectName: (settings.arguments as Map)["subjectName"]),));
+      return MaterialPageRoute(
+          builder: (context) => ExamsScreen(
+                args: ExamsScreenData(
+                    subjectId:
+                        (settings.arguments as Map)['subjectId']!.toString(),
+                    subjectName: (settings.arguments as Map)["subjectName"]),
+              ));
     case AppRoutes.home:
-      return MaterialPageRoute(builder: (context) =>  HomeScreen());
+      return MaterialPageRoute(builder: (context) => HomeScreen());
     case AppRoutes.profile:
-      return MaterialPageRoute(builder: (context) =>  ProfileScreen());
+      return MaterialPageRoute(builder: (context) => ProfileScreen());
     default:
       return MaterialPageRoute(builder: (context) => notFound());
   }
@@ -44,5 +50,5 @@ class AppRoutes {
   static const home = "home";
   static const subject = "subject";
   static const exams = "exams";
-  static const profile = "profile";// termporary
+  static const profile = "profile"; // termporary
 }

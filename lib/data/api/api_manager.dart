@@ -90,23 +90,21 @@ class ApiManager {
   }
 
   Future<AuthResponse?> editProfile(AuthBody body) async {
-  var data={
-          "firstName": body.firstName,
-          "lastName":body.lastName,
-          "username":body.username,
-          "email":body.email,
-          "phone":body.phone,
-        };
-      if(body.password!.isNotEmpty){
-      data['password']=body.password;
-      }
-    
+    var data = {
+      "firstName": body.firstName,
+      "lastName": body.lastName,
+      "username": body.username,
+      "email": body.email,
+      "phone": body.phone,
+    };
+    if (body.password!.isNotEmpty) {
+      data['password'] = body.password;
+    }
+
     var response = await _dio.put(ApiConsts.editProfile,
-        data:data,
+        data: data,
         options: Options(
             headers: {"token": CacheHelper.getData(key: Consts.token)}));
     return AuthResponse.fromJson(response.data);
-
-
   }
 }

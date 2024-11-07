@@ -1,5 +1,5 @@
 import 'package:elevate_online_exam/common/api_result.dart';
-import 'package:elevate_online_exam/data/api/models/request/auth_bddy.dart';
+import 'package:elevate_online_exam/data/api/models/request/auth_body.dart';
 import 'package:elevate_online_exam/domain/models/user.dart';
 
 abstract class AuthOnlineDatasource {

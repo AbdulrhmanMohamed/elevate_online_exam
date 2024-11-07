@@ -1,4 +1,4 @@
-import 'package:elevate_online_exam/data/api/models/request/register_body.dart';
+import 'package:elevate_online_exam/data/api/models/request/auth_body.dart';
 
 sealed class ProfileIntent {}
 

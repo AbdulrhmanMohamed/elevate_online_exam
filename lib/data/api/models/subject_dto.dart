@@ -13,5 +13,5 @@ class SubjectDto {
         icon: json['icon'] as String?,
       );
 
-  Subject toSubject() =>Subject(id: id, icon: icon, name:name);
+  Subject toSubject() => Subject(id: id, icon: icon, name: name);
 }

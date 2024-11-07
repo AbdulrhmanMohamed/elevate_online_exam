@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- await CacheHelper.init();
+  await CacheHelper.init();
   await ScreenUtil.ensureScreenSize();
   configureDependencies();
   Bloc.observer = SimpleBlocObserver();
@@ -29,7 +29,7 @@ class OnlineExam extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: appTheme(),
         onGenerateRoute: manageRoute,
-        initialRoute: AppRoutes.login,
+        initialRoute: AppRoutes.home,
       ),
     );
   }

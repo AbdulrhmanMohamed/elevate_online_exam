@@ -12,23 +12,21 @@ class SubjectList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SubjectViewmodel, SubjectState>(
       builder: (context, state) {
-
-       if(state is SubjectLoadingState){
-        return const Center(child: CircularProgressIndicator(),);
-       }
-       else if (state is SubjectSuccessState){
-       
-        return ListView.separated(
-      
-            separatorBuilder: (context, index) => vertical_space(20),
-            itemCount: state.subjects.length,
-            itemBuilder: (context, index) {
-              return SubjectItem(
-               subject: state.subjects[index]!,
-              );
-            });
-       }
-       return const SizedBox();
+        if (state is SubjectLoadingState) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state is SubjectSuccessState) {
+          return ListView.separated(
+              separatorBuilder: (context, index) => vertical_space(20),
+              itemCount: state.subjects.length,
+              itemBuilder: (context, index) {
+                return SubjectItem(
+                  subject: state.subjects[index]!,
+                );
+              });
+        }
+        return const SizedBox();
       },
     );
   }

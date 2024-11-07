@@ -25,64 +25,65 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return 
-    // CacheHelper.getData(key: Consts.token).toString().isNotEmpty?
-    // HomeScreen():
-    BlocProvider(
-      create: (context) => loginViewModel,
-      child: BlocListener<LoginViewModel, LoginState>(
-        listener: (context, state) {
-          if (state is LoginLoadingState) {
-          } else if (state is LoginSuccessState) {
-            // log("why the sate is not working");
-            Navigator.pushNamed(context, AppRoutes.home);
-          } else if (state is LoginErrorState) {
-            ScaffoldMessenger.of(context).clearSnackBars();
-            ScaffoldMessenger.of(context).showSnackBar(
-              appSnackBar(
-                context,
-                extractErrorMessage(state.exception),
-              ),
-            );
-          }
-        },
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text(
-              StringsManager.login,
-              style: Styles.get_bold(AppSizes.s25.sp, AppColor.black),
-            ),
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.home);
-              },
-              icon: const Icon(Icons.arrow_back),
-            ),
-          ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(AppSizes.s20),
-              child: Form(
-                key: loginViewModel.formKey,
-                child: Column(
-                  children: [
-                    EmailAndPassword(
-                      emailController: loginViewModel.emailController,
-                      passwordController: loginViewModel.passwordController,
+    return CacheHelper.getData(key: Consts.token).toString().isNotEmpty &&
+            CacheHelper.getData(key: Consts.token) != null
+        ? HomeScreen()
+        : BlocProvider(
+            create: (context) => loginViewModel,
+            child: BlocListener<LoginViewModel, LoginState>(
+              listener: (context, state) {
+                if (state is LoginLoadingState) {
+                } else if (state is LoginSuccessState) {
+                  // log("why the sate is not working");
+                  Navigator.pushNamed(context, AppRoutes.home);
+                } else if (state is LoginErrorState) {
+                  ScaffoldMessenger.of(context).clearSnackBars();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    appSnackBar(
+                      context,
+                      extractErrorMessage(state.exception),
                     ),
-                    vertical_space(AppSizes.s10.h),
-                    const ForgetPassword(),
-                    vertical_space(AppSizes.s60),
-                    LoginButton(viewModel: loginViewModel),
-                    vertical_space(AppSizes.s10),
-                    const DontHaveAccount(),
-                  ],
+                  );
+                }
+              },
+              child: Scaffold(
+                appBar: AppBar(
+                  title: Text(
+                    StringsManager.login,
+                    style: Styles.get_bold(AppSizes.s25.sp, AppColor.black),
+                  ),
+                  leading: IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.home);
+                    },
+                    icon: const Icon(Icons.arrow_back),
+                  ),
+                ),
+                body: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(AppSizes.s20),
+                    child: Form(
+                      key: loginViewModel.formKey,
+                      child: Column(
+                        children: [
+                          EmailAndPassword(
+                            emailController: loginViewModel.emailController,
+                            passwordController:
+                                loginViewModel.passwordController,
+                          ),
+                          vertical_space(AppSizes.s10.h),
+                          const ForgetPassword(),
+                          vertical_space(AppSizes.s60),
+                          LoginButton(viewModel: loginViewModel),
+                          vertical_space(AppSizes.s10),
+                          const DontHaveAccount(),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-      ),
-    );
+          );
   }
 }

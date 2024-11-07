@@ -9,7 +9,9 @@ class ResultScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Result"),
       ),
-      body:const Center(child: Text("Result Screen"),),
+      body: const Center(
+        child: Text("Result Screen"),
+      ),
     );
   }
 }

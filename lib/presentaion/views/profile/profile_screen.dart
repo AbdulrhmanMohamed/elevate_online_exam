@@ -6,7 +6,6 @@ import 'package:elevate_online_exam/presentaion/helper/router_helper.dart';
 import 'package:elevate_online_exam/presentaion/helper/spacing.dart';
 import 'package:elevate_online_exam/presentaion/helper/strings_manager.dart';
 import 'package:elevate_online_exam/presentaion/helper/text_styles.dart';
-import 'package:elevate_online_exam/presentaion/views/profile/profileInput.dart';
 import 'package:elevate_online_exam/presentaion/views/profile/profile_viewmodel/profile_intent.dart';
 import 'package:elevate_online_exam/presentaion/views/profile/profile_viewmodel/profile_state.dart';
 import 'package:elevate_online_exam/presentaion/views/profile/profile_viewmodel/profile_viewmodel.dart';
@@ -65,40 +64,40 @@ class ProfileScreen extends StatelessWidget {
                     builder: (context, state) {
                       if (state is EditProfileLoadingState) {
                         return const AppButton(
-                          text:  Center(
-                            child:
-                                CircularProgressIndicator(color: AppColor.white),
+                          text: Center(
+                            child: CircularProgressIndicator(
+                                color: AppColor.white),
                           ),
                         );
-                      }else{
-                       return AppButton(
-                        text: Text(
-                          "Update",
-                          style: Styles.get_bold(AppSizes.s20, AppColor.white),
-                        ),
-                        onPressed: () {
-                          _profileViewmodel.doIntent(
-                            EditUserProfileIntent(
-                              AuthBody(
-                                firstName:
-                                    _profileViewmodel.firstNameController.text,
-                                lastName:
-                                    _profileViewmodel.lastNameController.text,
-                                username:
-                                    _profileViewmodel.usernameController.text,
-                                email: _profileViewmodel.emailController.text,
-                                phone: _profileViewmodel.phoneController.text,
-                                password: _profileViewmodel
-                                        .passwordController.text
-                                    
+                      } else {
+                        return AppButton(
+                          text: Text(
+                            "Update",
+                            style:
+                                Styles.get_bold(AppSizes.s20, AppColor.white),
+                          ),
+                          onPressed: () {
+                            _profileViewmodel.doIntent(
+                              EditUserProfileIntent(
+                                AuthBody(
+                                    firstName: _profileViewmodel
+                                        .firstNameController.text,
+                                    lastName: _profileViewmodel
+                                        .lastNameController.text,
+                                    username: _profileViewmodel
+                                        .usernameController.text,
+                                    email:
+                                        _profileViewmodel.emailController.text,
+                                    phone:
+                                        _profileViewmodel.phoneController.text,
+                                    password: _profileViewmodel
+                                        .passwordController.text),
                               ),
-                            ),
-                          );
-                        },
-                      );
-
+                            );
+                          },
+                        );
                       }
-                                         },
+                    },
                   ),
                 ],
               ),

@@ -13,34 +13,43 @@ ThemeData appTheme() {
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent),
     scaffoldBackgroundColor: AppColor.moreLighterGray,
-    inputDecorationTheme:const  InputDecorationTheme(
-        hintStyle: TextStyle(fontWeight: FontWeight.w300),
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: AppColor.black,
-        )),
-        border: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: AppColor.black,
-        )),
-        ),
-
-        navigationBarTheme: NavigationBarThemeData(
-          // Customizing the colors for selected and unselected items
-          indicatorColor: AppColor.mainBlue, // Highlight for selected items
-          labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>((Set<WidgetState> states) {
-            if (states.contains(WidgetState.selected)) { 
-              return const TextStyle(color: AppColor.darkBlue,fontSize: AppSizes.s20); // Color for selected label
-            }
-            return const TextStyle(color: AppColor.gray_30,fontSize: AppSizes.s20); // Color for unselected label
-          }),
-          iconTheme: WidgetStateProperty.resolveWith<IconThemeData>((Set<WidgetState> states) {
-            if (states.contains(WidgetState.selected)) {
-              return const IconThemeData(color: AppColor.darkBlue,size: AppSizes.s23); // Color for selected icon
-            }
-            return const IconThemeData(color: AppColor.gray_30,size: AppSizes.s23); // Color for unselected icon
-          }),
-        ),
-       );
+    inputDecorationTheme: const InputDecorationTheme(
+      hintStyle: TextStyle(fontWeight: FontWeight.w300),
+      floatingLabelBehavior: FloatingLabelBehavior.always,
+      focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+        color: AppColor.black,
+      )),
+      border: OutlineInputBorder(
+          borderSide: BorderSide(
+        color: AppColor.black,
+      )),
+    ),
+    navigationBarTheme: NavigationBarThemeData(
+      // Customizing the colors for selected and unselected items
+      indicatorColor: AppColor.mainBlue, // Highlight for selected items
+      labelTextStyle:
+          WidgetStateProperty.resolveWith<TextStyle>((Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
+          return const TextStyle(
+              color: AppColor.darkBlue,
+              fontSize: AppSizes.s20); // Color for selected label
+        }
+        return const TextStyle(
+            color: AppColor.gray_30,
+            fontSize: AppSizes.s20); // Color for unselected label
+      }),
+      iconTheme: WidgetStateProperty.resolveWith<IconThemeData>(
+          (Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
+          return const IconThemeData(
+              color: AppColor.darkBlue,
+              size: AppSizes.s23); // Color for selected icon
+        }
+        return const IconThemeData(
+            color: AppColor.gray_30,
+            size: AppSizes.s23); // Color for unselected icon
+      }),
+    ),
+  );
 }

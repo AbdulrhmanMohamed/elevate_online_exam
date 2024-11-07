@@ -1,8 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:elevate_online_exam/common/prefs_manager.dart';
 import 'package:elevate_online_exam/data/api/api_consts.dart';
+import 'package:elevate_online_exam/data/api/models/request/check_questions_body/check_questions_body.dart';
 import 'package:elevate_online_exam/data/api/models/request/auth_body.dart';
 import 'package:elevate_online_exam/data/api/models/response/auth_response/auth_response/auth_response.dart';
+import 'package:elevate_online_exam/data/api/models/response/check_answers_resposnse/check_answers_resposnse.dart';
+import 'package:elevate_online_exam/data/api/models/response/exam_questions_response/exam_questions_response.dart';
 import 'package:elevate_online_exam/data/api/models/response/exam_response/exam_response.dart';
 import 'package:elevate_online_exam/data/api/models/response/subject_response/subject_response.dart';
 import 'package:elevate_online_exam/data/consts.dart';
@@ -72,6 +75,22 @@ class ApiManager {
         options: Options(
             headers: {"token": CacheHelper.getData(key: Consts.token)}));
     return SubjectResponse.fromJson(response.data);
+  }
+
+  Future<ExamQuestionsResponse?> getQuestions(String examId) async {
+    var response = await _dio.get(ApiConsts.getExamQuestions + examId,
+        options: Options(
+            headers: {"token": CacheHelper.getData(key: Consts.token)}));
+    return ExamQuestionsResponse.fromJson(response.data);
+  }
+
+  Future<CheckAnswersResposnse?> checkAnswers(
+      CheckQuestionsBody checkQuestionsBody) async {
+    var response = await _dio.post(ApiConsts.checkAnswers,
+        data: checkQuestionsBody.toJson(),
+        options: Options(
+            headers: {"token": CacheHelper.getData(key: Consts.token)}));
+    return CheckAnswersResposnse.fromJson(response.data);
   }
 
   Future<ExamResponse?> getExamsBySubject(String subjectId) async {

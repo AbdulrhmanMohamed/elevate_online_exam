@@ -6,7 +6,11 @@ class Exam {
   final int? numberOfQuestions;
 
   Exam(
-      {this.id, this.title, this.duration, this.subject, this.numberOfQuestions});
+      {this.id,
+      this.title,
+      this.duration,
+      this.subject,
+      this.numberOfQuestions});
 
   factory Exam.fromJson(Map<String, dynamic> json) => Exam(
         id: json['_id'],
@@ -15,6 +19,4 @@ class Exam {
         subject: json['subject'],
         numberOfQuestions: json['numberOfQuestions'],
       );
-  
-  
 }

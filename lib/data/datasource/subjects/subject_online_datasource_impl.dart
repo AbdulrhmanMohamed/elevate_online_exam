@@ -6,7 +6,7 @@ import 'package:elevate_online_exam/data/contracts/subjects/subject_online_datas
 import 'package:elevate_online_exam/domain/models/subject.dart';
 import 'package:injectable/injectable.dart';
 
-@Injectable(as:SubjectOnlineDatasource)
+@Injectable(as: SubjectOnlineDatasource)
 class SubjectOnlineDatasourceImpl implements SubjectOnlineDatasource {
   final ApiManager _apiManager;
   SubjectOnlineDatasourceImpl(this._apiManager);

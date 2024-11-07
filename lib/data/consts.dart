@@ -1,5 +1,3 @@
-class Consts{
-
-static String token="token";
-
+class Consts {
+  static String token = "token";
 }

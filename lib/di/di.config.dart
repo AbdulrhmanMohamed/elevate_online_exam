@@ -31,8 +31,10 @@ import '../domain/repos/authentication_repo.dart' as _i1053;
 import '../domain/repos/exam_questions_repo.dart' as _i241;
 import '../domain/repos/exams_repo.dart' as _i536;
 import '../domain/repos/subject_repo.dart' as _i144;
+import '../domain/usecases/authentication/edit_profile_usecase.dart' as _i812;
 import '../domain/usecases/authentication/forget_password_usecase.dart'
     as _i228;
+import '../domain/usecases/authentication/get_profile_usecase.dart' as _i453;
 import '../domain/usecases/authentication/login_usecase.dart' as _i827;
 import '../domain/usecases/authentication/register_usecase.dart' as _i796;
 import '../domain/usecases/examQuestions/get_exam_questions_usecase.dart'
@@ -52,6 +54,10 @@ import '../presentaion/views/home/home_viewModel.dart' as _i52;
 import '../presentaion/views/login/login_validator/login_validator.dart'
     as _i788;
 import '../presentaion/views/login/login_viewmodel.dart' as _i668;
+import '../presentaion/views/profile/profile_controller/profile_controllers.dart'
+    as _i445;
+import '../presentaion/views/profile/profile_viewmodel/profile_viewmodel.dart'
+    as _i667;
 import '../presentaion/views/questions/questions_viewmodel.dart' as _i433;
 import '../presentaion/views/register/register_validator/register_validator.dart'
     as _i928;
@@ -75,6 +81,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i322.ForgetPasswordValidator());
     gh.factory<_i52.HomeViewmodel>(() => _i52.HomeViewmodel());
     gh.factory<_i788.LoginValidator>(() => _i788.LoginValidator());
+    gh.factory<_i445.ProfileControllers>(() => _i445.ProfileControllers());
     gh.factory<_i928.RegisterValidator>(() => _i928.RegisterValidator());
     gh.lazySingleton<_i93.ApiManager>(() => _i93.ApiManager());
     gh.factory<_i522.ExamsOnlineDatasource>(
@@ -121,8 +128,17 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i668.LoginViewModel>(
         () => _i668.LoginViewModel(gh<_i827.LoginUsecase>()));
+    gh.factory<_i812.EditProfileUsecase>(
+        () => _i812.EditProfileUsecase(gh<_i1053.AuthenticationRepo>()));
     gh.factory<_i228.ForgetPasswordUsecase>(
         () => _i228.ForgetPasswordUsecase(gh<_i1053.AuthenticationRepo>()));
+    gh.factory<_i453.GetProfileUsecase>(
+        () => _i453.GetProfileUsecase(gh<_i1053.AuthenticationRepo>()));
+    gh.factory<_i667.ProfileViewmodel>(() => _i667.ProfileViewmodel(
+          gh<_i453.GetProfileUsecase>(),
+          gh<_i445.ProfileControllers>(),
+          gh<_i812.EditProfileUsecase>(),
+        ));
     gh.factory<_i138.ForegetPasswordViewmodel>(
         () => _i138.ForegetPasswordViewmodel(
               gh<_i228.ForgetPasswordUsecase>(),

@@ -1,4 +1,5 @@
 import 'package:elevate_online_exam/common/api_result.dart';
+import 'package:elevate_online_exam/data/api/models/request/auth_body.dart';
 import 'package:elevate_online_exam/data/contracts/auth/auth_online_datasource.dart';
 import 'package:elevate_online_exam/domain/models/user.dart';
 import 'package:elevate_online_exam/domain/repos/authentication_repo.dart';
@@ -15,7 +16,6 @@ class AuthRepoImpl implements AuthenticationRepo {
   Future<Result<User?>> login(String email, String password) async {
     return await _authOnlineDatasource.login(email, password);
 
-    // TODO: implement the logic for the offline
   }
 
   @override
@@ -27,7 +27,7 @@ class AuthRepoImpl implements AuthenticationRepo {
       String password,
       String rePassword,
       String phone) async {
-    // TODO: implement register
+  
     return await _authOnlineDatasource.register(
         username, firstName, lastName, email, password, rePassword, phone);
   }
@@ -45,5 +45,16 @@ class AuthRepoImpl implements AuthenticationRepo {
   @override
   Future<Result<User?>> resetPassword(String email, String newPassword) async {
     return await _authOnlineDatasource.resetPasswprd(email, newPassword);
+  }
+  
+  @override
+  Future<Result<User?>> getProfile() async{
+     
+    return await _authOnlineDatasource.getProfile();
+  }
+  @override
+  Future<Result<User?>> editProfile(AuthBody body) async{
+     
+    return await _authOnlineDatasource.editProfile(body);
   }
 }

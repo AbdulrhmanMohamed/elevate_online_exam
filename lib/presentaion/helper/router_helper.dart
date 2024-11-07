@@ -7,6 +7,7 @@ import 'package:elevate_online_exam/presentaion/views/home/home_screen.dart';
 import 'package:elevate_online_exam/presentaion/views/login/login_screen.dart';
 import 'package:elevate_online_exam/presentaion/views/questions/exam_questions_screen_data.dart';
 import 'package:elevate_online_exam/presentaion/views/questions/questions_screen.dart';
+import 'package:elevate_online_exam/presentaion/views/profile/profile_screen.dart';
 import 'package:elevate_online_exam/presentaion/views/register/register_screen.dart';
 import 'package:elevate_online_exam/presentaion/views/subject/subject_screen.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +24,8 @@ Route manageRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) {
         final args = (settings.arguments as Map);
         return QuestionsScreen(
-          examQuestionsScreenData:
-              ExamQuestionsScreenData(examDuration: 1, examId: args['examId']),
+          examQuestionsScreenData: ExamQuestionsScreenData(
+              examDuration: args['examDuration'], examId: args['examId']),
         );
       });
     case AppRoutes.subject:
@@ -51,6 +52,8 @@ Route manageRoute(RouteSettings settings) {
               examId: (settings.arguments as Map)['examId']),
         ),
       );
+    case AppRoutes.profile:
+      return MaterialPageRoute(builder: (context) => ProfileScreen());
     default:
       return MaterialPageRoute(builder: (context) => notFound());
   }
@@ -73,4 +76,5 @@ class AppRoutes {
   static const questions = "questions";
   static const exams = "exams";
   static const examScore = "examScore";
+  static const profile = "profile"; // termporary
 }

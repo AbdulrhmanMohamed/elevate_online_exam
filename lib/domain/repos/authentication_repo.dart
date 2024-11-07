@@ -1,4 +1,5 @@
 import 'package:elevate_online_exam/common/api_result.dart';
+import 'package:elevate_online_exam/data/api/models/request/auth_body.dart';
 import 'package:elevate_online_exam/domain/models/user.dart';
 
 abstract class AuthenticationRepo {
@@ -15,4 +16,6 @@ abstract class AuthenticationRepo {
   Future<Result<String>> forgotPassword(String email);
   Future<Result<bool>> verifyResetPassword(String resetCode);
   Future<Result<User?>> resetPassword(String email, String newPassword);
+  Future<Result<User?>> getProfile();
+  Future<Result<User?>> editProfile(AuthBody body);
 }

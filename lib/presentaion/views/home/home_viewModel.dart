@@ -27,7 +27,7 @@ class HomeViewmodel extends Cubit<HomeState> {
   List<Widget> screens = [
     SubjectScreen(),
     const ResultScreen(),
-    const ProfileScreen()
+     ProfileScreen()
   ];
 
   HomeViewmodel() : super(HomeInitial());

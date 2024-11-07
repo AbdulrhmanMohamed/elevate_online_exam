@@ -1,5 +1,6 @@
 class AppSizes {
   static const double s0 = 0.0;
+  static const double s0_5 = 0.5;
   static const double s1 = 1.0;
   static const double s2 = 2.0;
   static const double s3 = 3.0;
@@ -34,4 +35,5 @@ class AppSizes {
   static const double s50 = 50.0;
   static const double s60 = 60.0;
   static const double s80 = 80.0;
+  static const double s100 = 100.0;
 }

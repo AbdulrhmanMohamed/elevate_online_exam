@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:elevate_online_exam/common/prefs_manager.dart';
 import 'package:elevate_online_exam/data/api/api_consts.dart';
 import 'package:elevate_online_exam/data/api/models/request/check_questions_body/check_questions_body.dart';
-import 'package:elevate_online_exam/data/api/models/request/register_body.dart';
+import 'package:elevate_online_exam/data/api/models/request/auth_body.dart';
 import 'package:elevate_online_exam/data/api/models/response/auth_response/auth_response/auth_response.dart';
 import 'package:elevate_online_exam/data/api/models/response/check_answers_resposnse/check_answers_resposnse.dart';
 import 'package:elevate_online_exam/data/api/models/response/exam_questions_response/exam_questions_response.dart';
@@ -39,10 +39,10 @@ class ApiManager {
     return AuthResponse.fromJson(response.data);
   }
 
-  Future<AuthResponse?> register(RegisterBody registerBody) async {
+  Future<AuthResponse?> register(AuthBody AuthBody) async {
     var response = await _dio.post(
       ApiConsts.signupPath,
-      data: registerBody.toJson(),
+      data: AuthBody,
       options: Options(
         headers: {
           'Content-Type': 'application/json',
@@ -84,6 +84,15 @@ class ApiManager {
     return ExamQuestionsResponse.fromJson(response.data);
   }
 
+  Future<CheckAnswersResposnse?> checkAnswers(
+      CheckQuestionsBody checkQuestionsBody) async {
+    var response = await _dio.post(ApiConsts.checkAnswers,
+        data: checkQuestionsBody.toJson(),
+        options: Options(
+            headers: {"token": CacheHelper.getData(key: Consts.token)}));
+    return CheckAnswersResposnse.fromJson(response.data);
+  }
+
   Future<ExamResponse?> getExamsBySubject(String subjectId) async {
     var response = await _dio.get(ApiConsts.getExams,
         queryParameters: {"subject": subjectId},
@@ -92,12 +101,29 @@ class ApiManager {
     return ExamResponse.fromJson(response.data);
   }
 
-  Future<CheckAnswersResposnse?> checkAnswers(
-      CheckQuestionsBody checkQuestionsBody) async {
-    var response = await _dio.post(ApiConsts.checkAnswers,
-        data: checkQuestionsBody.toJson(),
+  Future<AuthResponse?> getProfile() async {
+    var response = await _dio.get(ApiConsts.getProfile,
         options: Options(
             headers: {"token": CacheHelper.getData(key: Consts.token)}));
-    return CheckAnswersResposnse.fromJson(response.data);
+    return AuthResponse.fromJson(response.data);
+  }
+
+  Future<AuthResponse?> editProfile(AuthBody body) async {
+    var data = {
+      "firstName": body.firstName,
+      "lastName": body.lastName,
+      "username": body.username,
+      "email": body.email,
+      "phone": body.phone,
+    };
+    if (body.password!.isNotEmpty) {
+      data['password'] = body.password;
+    }
+
+    var response = await _dio.put(ApiConsts.editProfile,
+        data: data,
+        options: Options(
+            headers: {"token": CacheHelper.getData(key: Consts.token)}));
+    return AuthResponse.fromJson(response.data);
   }
 }

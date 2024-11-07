@@ -9,4 +9,6 @@ class ApiConsts {
   static String getExamQuestions = "/v1/questions?exam=";
   static String getExams = "/v1/exams";
   static String checkAnswers = "/v1/questions/check";
+  static String getProfile = "/v1/auth/profileData";
+  static const editProfile = "/v1/auth/editProfile";
 }

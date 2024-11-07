@@ -18,6 +18,9 @@ class ExamOnlineDatasourceImpl implements ExamOnlineDatasource {
   Future<Result<ExamQuestions>> getExamQuestions(String examId) {
     return executeApi(() async {
       final response = await _apiManager.getQuestions(examId);
+      if (response!.questions!.isEmpty) {
+        throw Exception("No questions found");
+      }
       var dto = ExamQuestionsDto(questions: response?.questions);
       return dto.toExamQuestions();
     });

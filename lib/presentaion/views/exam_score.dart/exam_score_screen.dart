@@ -5,6 +5,7 @@ import 'package:elevate_online_exam/presentaion/utils.dart';
 import 'package:elevate_online_exam/presentaion/views/exam_score.dart/buttons.dart';
 import 'package:elevate_online_exam/presentaion/views/exam_score.dart/circular_indicator_painter.dart';
 import 'package:elevate_online_exam/presentaion/views/exam_score.dart/correct_incorrect_count.dart';
+import 'package:elevate_online_exam/presentaion/views/exam_score.dart/exam_score_screen_data.dart';
 import 'package:elevate_online_exam/presentaion/views/exam_score.dart/exam_score_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,8 +13,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
 class ExamScoreScreen extends StatelessWidget {
-  final Map<String, String> answers;
-  ExamScoreScreen({super.key, required this.answers});
+  final ExamScoreScreenData examScoreScreenData;
+  ExamScoreScreen({
+    super.key,
+    required this.examScoreScreenData,
+  });
 
   ExamScoreViewmodel viewmodel = getIt.get<ExamScoreViewmodel>();
   @override
@@ -88,8 +92,12 @@ class ExamScoreScreen extends StatelessWidget {
                         height: 80.h,
                       ),
                       Buttons(
-                        showResults: () {},
-                        startAgain: () {},
+                        showResults: () {
+                          _showResults(context);
+                        },
+                        startAgain: () {
+                          _startExamAgain(context);
+                        },
                       )
                     ],
                   ),
@@ -116,6 +124,26 @@ class ExamScoreScreen extends StatelessWidget {
   }
 
   void _getExamScore() {
-    viewmodel.doIntent(GetScoreIntent(answers));
+    viewmodel.doIntent(GetScoreIntent(examScoreScreenData.answers));
+  }
+
+  void _startExamAgain(BuildContext context) {
+    Navigator.pushNamed(
+      context,
+      AppRoutes.questions,
+      arguments: {
+        "examDuration": examScoreScreenData.examDuration,
+        "examId": examScoreScreenData.examId
+      },
+    );
+  }
+
+  void _showResults(BuildContext context) {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      AppRoutes.home,
+      arguments: {"navName": "Results"},
+      (Route<dynamic> route) => false,
+    );
   }
 }

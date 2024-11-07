@@ -1,4 +1,5 @@
 import 'package:elevate_online_exam/presentaion/views/exam_score.dart/exam_score_screen.dart';
+import 'package:elevate_online_exam/presentaion/views/exam_score.dart/exam_score_screen_data.dart';
 import 'package:elevate_online_exam/presentaion/views/exams/exams_screen.dart';
 import 'package:elevate_online_exam/presentaion/views/exams/exams_screen_data.dart';
 import 'package:elevate_online_exam/presentaion/views/forget_password/forget_password_screen.dart';
@@ -37,11 +38,17 @@ Route manageRoute(RouteSettings settings) {
                     subjectName: (settings.arguments as Map)["subjectName"]),
               ));
     case AppRoutes.home:
-      return MaterialPageRoute(builder: (context) => HomeScreen());
+      return MaterialPageRoute(
+          builder: (context) => HomeScreen(
+                navName: (settings.arguments as Map?)?['navName'],
+              ));
     case AppRoutes.examScore:
       return MaterialPageRoute(
         builder: (context) => ExamScoreScreen(
-          answers: (settings.arguments as Map)['answers'],
+          examScoreScreenData: ExamScoreScreenData(
+              answers: (settings.arguments as Map)['answers'],
+              examDuration: (settings.arguments as Map)['examDuration'],
+              examId: (settings.arguments as Map)['examId']),
         ),
       );
     default:

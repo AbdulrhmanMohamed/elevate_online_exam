@@ -10,6 +10,11 @@ import 'package:injectable/injectable.dart';
 @injectable
 class HomeViewmodel extends Cubit<HomeState> {
   int currentIndex = 0;
+  final namedNavs = {
+    "Home": 0,
+    "Results": 1,
+    "Profile": 2,
+  };
   List<NavigationDestination> navigationItems = [
     const NavigationDestination(
       icon: Icon(Icons.home),
@@ -31,6 +36,13 @@ class HomeViewmodel extends Cubit<HomeState> {
     currentIndex = index;
     log("===============what is the currentIndex $currentIndex");
     emit(HomeChangePage());
+  }
+
+  void startPage(String navName) {
+    if (namedNavs.containsKey(navName)) {
+      currentIndex = namedNavs[navName]!;
+      emit(HomeChangePage());
+    }
   }
 }
 

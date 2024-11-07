@@ -37,8 +37,11 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     }
 
     void endExam() {
-      Navigator.pushNamed(context, AppRoutes.examScore,
-          arguments: {"answers": viewModel.answersMap});
+      Navigator.pushNamed(context, AppRoutes.examScore, arguments: {
+        "answers": viewModel.answersMap,
+        "examDuration": widget.examQuestionsScreenData.examDuration,
+        "examId": widget.examQuestionsScreenData.examId
+      });
     }
 
     return BlocProvider(

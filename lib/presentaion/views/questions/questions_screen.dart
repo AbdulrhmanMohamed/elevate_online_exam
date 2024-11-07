@@ -7,6 +7,7 @@ import 'package:elevate_online_exam/presentaion/views/questions/next_back_button
 import 'package:elevate_online_exam/presentaion/views/questions/questions_progress_indicator.dart';
 import 'package:elevate_online_exam/presentaion/views/questions/questions_viewmodel.dart';
 import 'package:elevate_online_exam/presentaion/views/questions/single_choice_question.dart';
+import 'package:elevate_online_exam/presentaion/views/questions/time_up_dialog.dart';
 import 'package:elevate_online_exam/presentaion/views/questions/timer/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 // ignore: must_be_immutable
 class QuestionsScreen extends StatefulWidget {
   final ExamQuestionsScreenData examQuestionsScreenData;
+
   const QuestionsScreen({super.key, required this.examQuestionsScreenData});
 
   @override
@@ -22,6 +24,7 @@ class QuestionsScreen extends StatefulWidget {
 }
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
+  QuestionsState? _lastState;
   @override
   Widget build(BuildContext context) {
     QuestionsViewmodel viewModel = getIt.get<QuestionsViewmodel>();
@@ -45,6 +48,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
       });
     }
 
+    void timeUp() {
+      viewModel.doIntent(TimeUpIntent());
+    }
+
     return BlocProvider(
       create: (context) {
         viewModel.doIntent(
@@ -59,51 +66,103 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
           actions: [
             Timer(
               duration: widget.examQuestionsScreenData.examDuration,
-              examEnded: () {},
+              examEnded: timeUp,
             ),
           ],
         ),
-        body: BlocBuilder<QuestionsViewmodel, QuestionsState>(
-          builder: (context, state) {
-            if (state is LoadingState) {
-              return const Center(
-                child: CircularProgressIndicator(),
+        body: BlocListener<QuestionsViewmodel, QuestionsState>(
+          listener: (context, state) {
+            if (state is TimeUpState) {
+              showDialog(
+                context: context,
+                builder: (context) => TimeUpDialog(endExam: endExam),
               );
             }
-            if (state is SingleChoiceQuestionState) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  QuestionPrgressIndiactor(
-                    progress: viewModel.progress!,
-                    currentQuestionCount: viewModel.questionCount + 1,
-                    numberOfQuestions: viewModel.numberOfQuestions!,
-                  ),
-                  SingleChoiceQuestion(
-                    pickSingleAnswer: pickSingleAnswer,
-                    question: state.question,
-                    answer: viewModel.answersMap[state.question.id],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: NextBackButtons(
-                      nextQuestion: nextQuestion,
-                      prevQuestion: prevQuestion,
-                      isLastQuestion: (viewModel.numberOfQuestions)! - 1 ==
-                          viewModel.questionCount,
-                      endExam: endExam,
-                    ),
-                  ),
-                ],
-              );
-            }
-            if (state is ErrorState) {
-              return Center(
-                child: Text(extractErrorMessage(state.exception)),
-              );
-            }
-            return Placeholder();
           },
+          child: BlocBuilder<QuestionsViewmodel, QuestionsState>(
+            builder: (context, state) {
+              if (state is LoadingState) {
+                _lastState = state;
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is SingleChoiceQuestionState) {
+                _lastState = state;
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    QuestionPrgressIndiactor(
+                      progress: viewModel.progress!,
+                      currentQuestionCount: viewModel.questionCount + 1,
+                      numberOfQuestions: viewModel.numberOfQuestions!,
+                    ),
+                    SingleChoiceQuestion(
+                      pickSingleAnswer: pickSingleAnswer,
+                      question: state.question,
+                      answer: viewModel.answersMap[state.question.id],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: NextBackButtons(
+                        nextQuestion: nextQuestion,
+                        prevQuestion: prevQuestion,
+                        isLastQuestion: (viewModel.numberOfQuestions)! - 1 ==
+                            viewModel.questionCount,
+                        endExam: endExam,
+                      ),
+                    ),
+                  ],
+                );
+              }
+              if (state is ErrorState) {
+                _lastState = state;
+                return Center(
+                  child: Text(extractErrorMessage(state.exception)),
+                );
+              }
+              if (_lastState != null) {
+                // Display the last valid state widget
+                if (_lastState is SingleChoiceQuestionState) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      QuestionPrgressIndiactor(
+                        progress: viewModel.progress!,
+                        currentQuestionCount: viewModel.questionCount + 1,
+                        numberOfQuestions: viewModel.numberOfQuestions!,
+                      ),
+                      SingleChoiceQuestion(
+                        pickSingleAnswer: pickSingleAnswer,
+                        question:
+                            (_lastState as SingleChoiceQuestionState).question,
+                        answer: viewModel.answersMap[
+                            (_lastState as SingleChoiceQuestionState)
+                                .question
+                                .id],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: NextBackButtons(
+                          nextQuestion: nextQuestion,
+                          prevQuestion: prevQuestion,
+                          isLastQuestion: (viewModel.numberOfQuestions)! - 1 ==
+                              viewModel.questionCount,
+                          endExam: endExam,
+                        ),
+                      ),
+                    ],
+                  );
+                } else if (_lastState is ErrorState) {
+                  return Center(
+                    child: Text(extractErrorMessage(
+                        (_lastState as ErrorState).exception)),
+                  );
+                }
+              }
+              return Placeholder();
+            },
+          ),
         ),
       ),
     );

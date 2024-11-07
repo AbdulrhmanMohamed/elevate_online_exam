@@ -23,8 +23,8 @@ Route manageRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) {
         final args = (settings.arguments as Map);
         return QuestionsScreen(
-          examQuestionsScreenData: ExamQuestionsScreenData(
-              examDuration: args['examDuration'], examId: args['examId']),
+          examQuestionsScreenData:
+              ExamQuestionsScreenData(examDuration: 1, examId: args['examId']),
         );
       });
     case AppRoutes.subject:

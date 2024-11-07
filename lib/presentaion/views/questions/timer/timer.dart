@@ -43,6 +43,7 @@ class Timer extends StatelessWidget {
             BlocBuilder<TimerViewmodel, int>(
               builder: (context, remainingTime) {
                 if (remainingTime == 0) {
+                  print(remainingTime);
                   examEnded();
                 }
                 return Text(

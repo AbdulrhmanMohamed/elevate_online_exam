@@ -27,6 +27,8 @@ class QuestionsViewmodel extends Cubit<QuestionsState> {
         _prevQuestion();
       case PickSingleAnswerIntent():
         _pickanswer(intent.answerKey);
+      case TimeUpIntent():
+        emit(TimeUpState());
     }
   }
 
@@ -87,6 +89,8 @@ class InitialState extends QuestionsState {}
 
 class LoadingState extends QuestionsState {}
 
+class TimeUpState extends QuestionsState {}
+
 class SingleChoiceQuestionState extends QuestionsState {
   Question question;
   SingleChoiceQuestionState(this.question);
@@ -117,3 +121,5 @@ class PickSingleAnswerIntent extends QuestionScreenIntent {
   final String answerKey;
   PickSingleAnswerIntent(this.answerKey);
 }
+
+class TimeUpIntent extends QuestionScreenIntent {}
